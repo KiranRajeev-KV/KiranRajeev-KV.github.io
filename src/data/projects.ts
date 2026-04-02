@@ -15,6 +15,7 @@ export interface Project {
     live?: string
   }
   featured: boolean
+  showcase: boolean
 }
 
 export const projects: Project[] = [
@@ -35,6 +36,7 @@ export const projects: Project[] = [
     size: 'large',
     links: { github: '#' },
     featured: true,
+    showcase: true,
   },
   {
     id: 'distributed-kv',
@@ -53,6 +55,7 @@ export const projects: Project[] = [
     size: 'small',
     links: { github: '#' },
     featured: true,
+    showcase: true,
   },
   {
     id: 'neural-from-scratch',
@@ -71,6 +74,7 @@ export const projects: Project[] = [
     size: 'small',
     links: { github: '#' },
     featured: false,
+    showcase: false,
   },
   {
     id: 'dotfiles',
@@ -88,6 +92,7 @@ export const projects: Project[] = [
     size: 'small',
     links: { github: '#' },
     featured: false,
+    showcase: false,
   },
   {
     id: 'portfolio',
@@ -105,6 +110,7 @@ export const projects: Project[] = [
     size: 'large',
     links: { github: '#', live: '#' },
     featured: true,
+    showcase: false,
   },
 ]
 

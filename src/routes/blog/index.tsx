@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useEffect } from 'react'
 import { blogPosts } from '../../data/blog'
 import { Section } from '../../components/section'
+import { useSearch, type SearchItem } from '../../context/search-context'
+import { SearchTrigger } from '../../components/search-trigger'
 
 export const Route = createFileRoute('/blog/')({
   component: BlogPage,
@@ -9,12 +12,30 @@ export const Route = createFileRoute('/blog/')({
 function BlogPage() {
   const featured = blogPosts.find((p: { featured: boolean }) => p.featured)
   const rest = blogPosts.filter((p: { featured: boolean }) => !p.featured)
+  const { setItems } = useSearch()
+
+  useEffect(() => {
+    const searchItems: SearchItem[] = blogPosts.map((p) => ({
+      id: p.slug,
+      type: 'blog',
+      title: p.title,
+      subtitle: `${p.category} · ${p.readTime}`,
+      description: p.teaser,
+      url: `/blog/${p.slug}`,
+      tags: [p.category],
+      accent: p.categoryColor,
+    }))
+    setItems(searchItems)
+  }, [setItems])
 
   return (
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <Section>
-          <h1 className="mb-12 font-serif text-4xl text-fg">Writing</h1>
+          <div className="mb-12 flex items-center justify-between">
+            <h1 className="font-serif text-4xl text-fg">Writing</h1>
+            <SearchTrigger />
+          </div>
         </Section>
 
         {featured && (

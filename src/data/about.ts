@@ -1,4 +1,34 @@
-export const about = {
+interface Skill {
+  name: string
+  weight: number
+  note: string
+}
+
+interface TimelineItem {
+  year: string
+  title: string
+  note: string
+}
+
+interface AboutData {
+  name: string
+  pronouns: string
+  location: string
+  university: string
+  major: string
+  graduation: string
+  currentlyBuilding: string
+  currentlyReading: string
+  bio: string
+  skills: {
+    languages: Skill[]
+    frameworks: Skill[]
+    tools: Skill[]
+  }
+  timeline: TimelineItem[]
+}
+
+export const about: AboutData = {
   name: 'Alex Chen',
   pronouns: 'he/him',
   location: 'Pittsburgh, PA',

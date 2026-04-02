@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { libraryItems } from '../data/library'
 import { Section } from '../components/section'
 import { LibraryCard } from '../components/library-card'
+import { useSearch, type SearchItem } from '../context/search-context'
+import { SearchTrigger } from '../components/search-trigger'
 
 const filterOptions = ['All', 'Books', 'Papers', 'Articles']
 
@@ -20,6 +22,22 @@ export const Route = createFileRoute('/library')({
 function LibraryPage() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const { setItems } = useSearch()
+
+  useEffect(() => {
+    const searchItems: SearchItem[] = libraryItems.map((item) => ({
+      id: item.id,
+      type: item.type,
+      title: item.title,
+      subtitle: `${item.author} · ${item.year}`,
+      description: item.note,
+      url: '/library',
+      tags: item.tags,
+      accent: item.accent,
+      scrollToId: `library-${item.id}`,
+    }))
+    setItems(searchItems)
+  }, [setItems])
 
   const filtered = activeFilter === 'All'
     ? libraryItems
@@ -29,7 +47,10 @@ function LibraryPage() {
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-3xl">
         <Section>
-          <h1 className="mb-2 font-serif text-4xl text-fg">Library</h1>
+          <div className="mb-2 flex items-center justify-between">
+            <h1 className="font-serif text-4xl text-fg">Library</h1>
+            <SearchTrigger />
+          </div>
           <p className="mb-8 font-serif text-base text-fg-muted">
             Books, papers, and things that shaped how I think.
           </p>
@@ -74,6 +95,7 @@ function LibraryPage() {
             {filtered.map((item, i) => (
               <motion.div
                 key={item.id}
+                id={`library-${item.id}`}
                 layout
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}

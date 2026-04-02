@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion } from 'motion/react'
 
 const navItems = [
   { path: '/', label: 'home' },
@@ -11,61 +10,40 @@ const navItems = [
 ]
 
 export function MobileNav() {
-  const [visible, setVisible] = useState(false)
   const location = useLocation()
 
-  useEffect(() => {
-    let ticking = false
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          setVisible(window.scrollY > 100)
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.nav
-          initial={{ y: '100%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '100%' }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-bg-elevated/90 backdrop-blur-md md:hidden"
-        >
-          <div className="flex items-stretch px-2 pb-[env(safe-area-inset-bottom)]">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`relative flex flex-1 flex-col items-center justify-center py-3 font-mono text-xs transition-colors ${
-                    isActive
-                      ? 'text-fg'
-                      : 'text-fg-subtle active:text-fg'
-                  }`}
-                >
-                  {item.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="mobile-nav-indicator"
-                      className="absolute top-0 left-1/2 h-0.5 w-6 -translate-x-1/2 bg-accent"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              )
-            })}
-          </div>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+    <motion.nav
+      initial={{ y: '100%' }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-bg-elevated/90 backdrop-blur-md md:hidden"
+    >
+      <div className="flex items-stretch px-2 pb-[env(safe-area-inset-bottom)]">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`relative flex flex-1 flex-col items-center justify-center py-3 font-mono text-xs transition-colors ${
+                isActive
+                  ? 'text-fg'
+                  : 'text-fg-subtle active:text-fg'
+              }`}
+            >
+              {item.label}
+              {isActive && (
+                <motion.div
+                  layoutId="mobile-nav-indicator"
+                  className="absolute top-0 left-1/2 h-0.5 w-6 -translate-x-1/2 bg-accent"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+            </Link>
+          )
+        })}
+      </div>
+    </motion.nav>
   )
 }

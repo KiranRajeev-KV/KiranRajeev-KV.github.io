@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useEffect } from 'react'
 import { KineticText } from '../components/kinetic-text'
 import { Typewriter } from '../components/typewriter'
 import { AmbientGrid } from '../components/ambient-grid'
@@ -6,12 +7,60 @@ import { ScrollNudge } from '../components/scroll-nudge'
 import { Section } from '../components/section'
 import { ContactSection } from '../components/contact-section'
 import { CursorToggle } from '../components/cursor-toggle'
+import { useSearch, type SearchItem } from '../context/search-context'
+import { projects } from '../data/projects'
+import { libraryItems } from '../data/library'
+import { blogPosts } from '../data/blog'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
 function HomePage() {
+  const { setItems } = useSearch()
+
+  useEffect(() => {
+    const allItems: SearchItem[] = [
+      ...projects.map((p) => ({
+        id: p.id,
+        type: 'project' as const,
+        title: p.title,
+        subtitle: p.stack.join(' · '),
+        description: p.description,
+        url: '/projects',
+        tags: p.stack,
+        accent: p.accent,
+      })),
+      ...libraryItems.map((item) => ({
+        id: item.id,
+        type: item.type as 'book' | 'paper' | 'article',
+        title: item.title,
+        subtitle: `${item.author} · ${item.year}`,
+        description: item.note,
+        url: '/library',
+        tags: item.tags,
+        accent: item.accent,
+        scrollToId: `library-${item.id}`,
+      })),
+      ...blogPosts.map((p) => ({
+        id: p.slug,
+        type: 'blog' as const,
+        title: p.title,
+        subtitle: `${p.category} · ${p.readTime}`,
+        description: p.teaser,
+        url: `/blog/${p.slug}`,
+        tags: [p.category],
+        accent: p.categoryColor,
+      })),
+    ]
+    // Shuffle so results are mixed, not grouped by type
+    for (let i = allItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[allItems[i], allItems[j]] = [allItems[j], allItems[i]]
+    }
+    setItems(allItems)
+  }, [setItems])
+
   return (
     <>
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
@@ -22,9 +71,15 @@ function HomePage() {
             text="Alex Chen"
             className="font-serif text-5xl font-bold tracking-tight text-fg sm:text-7xl md:text-8xl"
           />
-          <Typewriter phrases={['building things that matter.']} />
+          <Typewriter phrases={[
+            'building things that matter.',
+            'systems that scale.',
+            'code that lasts.',
+            'tools people actually use.',
+            'software with intention.',
+          ]} />
           <div className="mt-4 flex items-center gap-4 font-mono text-sm text-fg-muted">
-            <Link to="/projects" className="underline decoration-border underline-offset-4 hover:decoration-fg-subtle">
+            <Link to="/projects" search={{ open: undefined }} className="underline decoration-border underline-offset-4 hover:decoration-fg-subtle">
               projects
             </Link>
             <span className="text-fg-subtle">/</span>
@@ -68,20 +123,18 @@ function HomePage() {
             <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">Selected Work</h2>
           </Section>
           <div className="grid gap-6 md:grid-cols-2">
-            {[
-              { title: 'Syscall Tracer', desc: 'A lightweight Linux syscall tracer built with eBPF', stack: 'C · eBPF · Go', accent: '#f59e0b' },
-              { title: 'Distributed KV Store', desc: 'Raft-based key-value store with linearizable reads', stack: 'Go · gRPC · Raft', accent: '#10b981' },
-            ].map((project, i) => (
-              <Section key={project.title} delay={0.1 + i * 0.1}>
+            {projects.filter((p) => p.showcase).map((project, i) => (
+              <Section key={project.id} delay={0.1 + i * 0.1}>
                 <Link
                   to="/projects"
+                  search={{ open: project.id }}
                   className="group block rounded-lg border border-border p-6 transition-all hover:border-fg-subtle hover:shadow-sm"
                   style={{ '--accent': project.accent } as React.CSSProperties}
                 >
                   <div className="mb-2 h-0.5 w-8 bg-[var(--accent)] transition-all group-hover:w-12" />
                   <h3 className="font-serif text-xl text-fg">{project.title}</h3>
-                  <p className="mt-1 text-sm text-fg-muted">{project.desc}</p>
-                  <p className="mt-3 font-mono text-xs text-fg-subtle">{project.stack}</p>
+                  <p className="mt-1 text-sm text-fg-muted">{project.description}</p>
+                  <p className="mt-3 font-mono text-xs text-fg-subtle">{project.stack.join(' · ')}</p>
                 </Link>
               </Section>
             ))}

@@ -1,13 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { projects, abandonedProjects } from '../data/projects'
 import { Section } from '../components/section'
 import { FilterTags } from '../components/filter-tags'
 import { ProjectCard } from '../components/project-card'
 import { ProjectDrawer } from '../components/project-drawer'
+import { useSearch, type SearchItem } from '../context/search-context'
+import { SearchTrigger } from '../components/search-trigger'
 import type { Project as ProjectType } from '../data/projects'
 
 export const Route = createFileRoute('/projects')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    open: search.open as string | undefined,
+  }),
   component: ProjectsPage,
 })
 
@@ -21,6 +26,29 @@ const categoryMap: Record<string, string[]> = {
 function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null)
+  const { setItems } = useSearch()
+  const { open } = Route.useSearch()
+
+  useEffect(() => {
+    if (open) {
+      const project = projects.find((p) => p.id === open)
+      if (project) setSelectedProject(project)
+    }
+  }, [open])
+
+  useEffect(() => {
+    const searchItems: SearchItem[] = projects.map((p) => ({
+      id: p.id,
+      type: 'project',
+      title: p.title,
+      subtitle: p.stack.join(' · '),
+      description: p.description,
+      url: '/projects',
+      tags: p.stack,
+      accent: p.accent,
+    }))
+    setItems(searchItems)
+  }, [setItems])
 
   const filtered = activeFilter === 'All'
     ? projects
@@ -30,7 +58,10 @@ function ProjectsPage() {
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <Section>
-          <h1 className="mb-8 font-serif text-4xl text-fg">Projects</h1>
+          <div className="mb-8 flex items-center justify-between">
+            <h1 className="font-serif text-4xl text-fg">Projects</h1>
+            <SearchTrigger />
+          </div>
         </Section>
 
         <Section delay={0.05}>
