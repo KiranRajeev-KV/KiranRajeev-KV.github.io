@@ -5,6 +5,7 @@ import { AmbientGrid } from '../components/ambient-grid'
 import { ScrollNudge } from '../components/scroll-nudge'
 import { Section } from '../components/section'
 import { ContactSection } from '../components/contact-section'
+import { CursorToggle } from '../components/cursor-toggle'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -15,6 +16,7 @@ function HomePage() {
     <>
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
         <AmbientGrid />
+        <CursorToggle />
         <div className="relative z-10 flex flex-col items-center gap-6 text-center">
           <KineticText
             text="Alex Chen"
