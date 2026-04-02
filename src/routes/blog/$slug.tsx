@@ -1,0 +1,114 @@
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { blogPosts } from '../../data/blog'
+import { MDXProvider } from '@mdx-js/react'
+import { Section } from '../../components/section'
+
+const mdxModules = import.meta.glob('../../content/*.mdx', { eager: true })
+
+export const Route = createFileRoute('/blog/$slug')({
+  component: BlogPostPage,
+  errorComponent: BlogPostError,
+  notFoundComponent: BlogPostNotFound,
+})
+
+function BlogPostError() {
+  return (
+    <main className="min-h-screen px-6 py-32">
+      <div className="mx-auto max-w-2xl">
+        <Section>
+          <h1 className="font-mono text-lg text-fg">$ cd /post-you-wanted</h1>
+          <p className="mt-2 font-mono text-sm text-fg-muted">bash: no such file or directory</p>
+        </Section>
+      </div>
+    </main>
+  )
+}
+
+function BlogPostNotFound() {
+  return (
+    <main className="min-h-screen px-6 py-32">
+      <div className="mx-auto max-w-2xl">
+        <Section>
+          <h1 className="font-mono text-lg text-fg">$ cd /post-you-wanted</h1>
+          <p className="mt-2 font-mono text-sm text-fg-muted">bash: no such file or directory</p>
+          <Link to="/blog" className="mt-4 inline-block font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg">
+            ← back to writing
+          </Link>
+        </Section>
+      </div>
+    </main>
+  )
+}
+
+function BlogPostPage() {
+  const { slug } = Route.useParams()
+  const post = blogPosts.find((p) => p.slug === slug)
+  const MDXContent = (mdxModules[`../../content/${slug}.mdx`] as { default: React.ComponentType })?.default
+
+  if (!MDXContent) {
+    return <BlogPostNotFound />
+  }
+
+  return (
+    <main className="min-h-screen px-6 py-32">
+      <div className="mx-auto max-w-[65ch]">
+        {post && (
+          <Section>
+            <div className="mb-8 flex items-center gap-3 font-mono text-xs text-fg-subtle">
+              <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: post.categoryColor }} />
+              <span>{post.category}</span>
+              <span>·</span>
+              <span>{post.date}</span>
+              <span>·</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h1 className="mb-8 font-serif text-4xl text-fg">{post.title}</h1>
+          </Section>
+        )}
+        <Section delay={0.1}>
+          <article className="prose prose-lg max-w-none font-serif leading-[1.75] text-fg">
+            <MDXProvider
+              components={{
+                p: (props) => <p className="mb-4" {...props} />,
+                h2: (props) => <h2 className="mt-12 mb-4 font-serif text-2xl text-fg" {...props} />,
+                h3: (props) => <h3 className="mt-8 mb-3 font-serif text-xl text-fg" {...props} />,
+                code: (props) => {
+                  const isInline = typeof props.children === 'string' && !props.children?.toString().includes('\n')
+                  if (isInline) {
+                    return (
+                      <code className="rounded bg-bg-subtle px-1.5 py-0.5 font-mono text-sm" {...props} />
+                    )
+                  }
+                  return (
+                    <div className="group relative my-6">
+                      <pre className="overflow-x-auto rounded-lg border border-border bg-bg-subtle p-4 font-mono text-sm">
+                        <code {...props} />
+                      </pre>
+                      <button
+                        onClick={() => {
+                          const text = props.children?.toString() || ''
+                          navigator.clipboard.writeText(text)
+                        }}
+                        className="absolute top-3 right-3 rounded border border-border bg-bg-elevated px-2 py-1 font-mono text-xs text-fg-subtle opacity-0 transition-opacity hover:text-fg group-hover:opacity-100"
+                      >
+                        copy
+                      </button>
+                    </div>
+                  )
+                },
+                a: (props) => (
+                  <a className="text-accent underline decoration-border underline-offset-4 hover:decoration-accent" {...props} />
+                ),
+                blockquote: (props) => (
+                  <blockquote className="my-6 border-l-2 border-border pl-4 font-serif italic text-fg-muted" {...props} />
+                ),
+              }}
+            >
+              <MDXContent />
+            </MDXProvider>
+          </article>
+        </Section>
+      </div>
+    </main>
+  )
+}
