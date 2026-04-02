@@ -2,6 +2,7 @@ import { Outlet, createRootRoute, ScrollRestoration } from '@tanstack/react-rout
 import { AnimatePresence } from 'motion/react'
 import { CustomCursor } from '../components/custom-cursor'
 import { FloatingNav } from '../components/floating-nav'
+import { MobileNav } from '../components/mobile-nav'
 import { ProgressBar } from '../components/progress-bar'
 import { Footer } from '../components/footer'
 import { ToastProvider } from '../components/toast'
@@ -19,6 +20,7 @@ function RootComponent() {
       <ToastProvider>
         <div className="min-h-screen bg-bg text-fg">
           <FloatingNav />
+          <MobileNav />
           <AnimatePresence mode="wait">
             <Outlet />
           </AnimatePresence>

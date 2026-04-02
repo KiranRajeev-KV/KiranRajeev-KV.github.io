@@ -38,7 +38,7 @@ export function FloatingNav() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed top-4 left-1/2 z-40 -translate-x-1/2 rounded-full border border-border/60 bg-bg-elevated/80 px-2 py-1.5 backdrop-blur-md"
+          className="fixed top-4 left-1/2 z-40 -translate-x-1/2 rounded-full border border-border/60 bg-bg-elevated/80 px-2 py-1.5 backdrop-blur-md hidden md:block"
         >
           <ul className="flex items-center gap-1">
             {navItems.map((item) => (
