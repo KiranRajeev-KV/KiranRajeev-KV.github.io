@@ -46,7 +46,7 @@ bun run format
 ```
 src/
 ├── routes/              # File-based routes (TanStack Router)
-│   ├── __root.tsx       # Root layout (nav, cursor, search, footer)
+│   ├── __root.tsx       # Root layout (nav, search, footer)
 │   ├── index.tsx        # Home — kinetic text, typewriter, showcase
 │   ├── about.tsx        # About — bio, skills, timeline
 │   ├── projects.tsx     # Projects — card grid, drawer, abandoned
@@ -58,7 +58,7 @@ src/
 ├── components/          # Reusable UI components
 ├── data/                # All content as typed TS files
 ├── content/             # MDX blog posts
-├── context/             # React contexts (search, cursor)
+├── context/             # React contexts (search)
 ├── hooks/               # Custom hooks (search, intersection)
 └── styles/              # Global CSS + Tailwind theme
 ```
@@ -66,7 +66,6 @@ src/
 ## Features
 
 - **Kinetic text** — glyph-scramble name reveal on first load (sessionStorage)
-- **Custom cursor** — terminal-style blinking caret, toggleable, desktop-only
 - **Command palette** — `Cmd+K` fuzzy search across projects, blog, and library
 - **Responsive nav** — floating pill on desktop, bottom tab bar on mobile
 - **Mobile warning** — terminal-style overlay on small viewports
