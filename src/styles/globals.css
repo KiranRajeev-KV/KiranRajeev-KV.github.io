@@ -1,9 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
-  --font-serif: "Source Serif 4", "Georgia", "Times New Roman", serif;
-  --font-sans: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
 
   --color-bg: #0f0f0f;
   --color-bg-elevated: #1a1a1a;
@@ -21,7 +21,7 @@
 .cursor-disabled *,
 .cursor-disabled a,
 .cursor-disabled button,
-.cursor-disabled [role="button"],
+.cursor-disabled [role='button'],
 .cursor-disabled input,
 .cursor-disabled select,
 .cursor-disabled textarea {
@@ -32,7 +32,7 @@
   body,
   a,
   button,
-  [role="button"],
+  [role='button'],
   input,
   select,
   textarea {

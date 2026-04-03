@@ -27,9 +27,7 @@ export function MobileNav() {
               key={item.path}
               to={item.path}
               className={`relative flex flex-1 flex-col items-center justify-center py-3 font-mono text-xs transition-colors ${
-                isActive
-                  ? 'text-fg'
-                  : 'text-fg-subtle active:text-fg'
+                isActive ? 'text-fg' : 'text-fg-subtle active:text-fg'
               }`}
             >
               {item.label}

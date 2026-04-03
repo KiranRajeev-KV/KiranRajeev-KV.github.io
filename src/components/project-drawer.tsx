@@ -32,12 +32,18 @@ export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
               ← back
             </button>
 
-            <div className="mb-2 h-1 w-12 rounded-full" style={{ backgroundColor: project.accent }} />
+            <div
+              className="mb-2 h-1 w-12 rounded-full"
+              style={{ backgroundColor: project.accent }}
+            />
             <h2 className="mb-4 font-serif text-3xl text-fg">{project.title}</h2>
 
             <div className="mb-8 flex flex-wrap gap-2 font-mono text-xs">
               {project.stack.map((tech) => (
-                <span key={tech} className="rounded-full border border-border px-2.5 py-1 text-fg-muted">
+                <span
+                  key={tech}
+                  className="rounded-full border border-border px-2.5 py-1 text-fg-muted"
+                >
                   {tech}
                 </span>
               ))}
@@ -45,25 +51,36 @@ export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
 
             <div className="space-y-6 text-fg">
               <div>
-                <h3 className="mb-2 font-mono text-xs uppercase tracking-widest text-fg-subtle">Overview</h3>
+                <h3 className="mb-2 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                  Overview
+                </h3>
                 <p className="font-serif leading-relaxed">{project.longDescription}</p>
               </div>
 
               <div>
-                <h3 className="mb-2 font-mono text-xs uppercase tracking-widest text-fg-subtle">Problem</h3>
+                <h3 className="mb-2 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                  Problem
+                </h3>
                 <p className="font-serif leading-relaxed">{project.problem}</p>
               </div>
 
               <div>
-                <h3 className="mb-2 font-mono text-xs uppercase tracking-widest text-fg-subtle">Solution</h3>
+                <h3 className="mb-2 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                  Solution
+                </h3>
                 <p className="font-serif leading-relaxed">{project.solution}</p>
               </div>
 
               <div>
-                <h3 className="mb-3 font-mono text-xs uppercase tracking-widest text-fg-subtle">Lessons Learned</h3>
+                <h3 className="mb-3 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                  Lessons Learned
+                </h3>
                 <ul className="space-y-2">
                   {project.lessons.map((lesson) => (
-                    <li key={lesson} className="flex items-start gap-2 font-serif text-sm leading-relaxed">
+                    <li
+                      key={lesson}
+                      className="flex items-start gap-2 font-serif text-sm leading-relaxed"
+                    >
                       <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-fg-subtle" />
                       {lesson}
                     </li>
@@ -73,12 +90,22 @@ export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
 
               <div className="flex gap-4 pt-4">
                 {project.links.github && (
-                  <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg">
+                  <a
+                    href={project.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg"
+                  >
                     GitHub →
                   </a>
                 )}
                 {project.links.live && (
-                  <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg">
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg"
+                  >
                     Live Demo →
                   </a>
                 )}

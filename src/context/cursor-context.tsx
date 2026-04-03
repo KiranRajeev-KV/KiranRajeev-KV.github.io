@@ -28,9 +28,5 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     setEnabled((prev) => !prev)
   }, [])
 
-  return (
-    <CursorContext.Provider value={{ enabled, toggle }}>
-      {children}
-    </CursorContext.Provider>
-  )
+  return <CursorContext.Provider value={{ enabled, toggle }}>{children}</CursorContext.Provider>
 }

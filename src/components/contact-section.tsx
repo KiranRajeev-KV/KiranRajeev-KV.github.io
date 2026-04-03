@@ -29,7 +29,9 @@ export function ContactSection() {
 
           <div className="mb-6 flex items-center gap-2">
             <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
-            <span className="font-mono text-xs text-fg-muted">Open to internships — Summer 2026</span>
+            <span className="font-mono text-xs text-fg-muted">
+              Open to internships — Summer 2026
+            </span>
           </div>
 
           <motion.a
@@ -60,7 +62,14 @@ export function ContactSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                onClick={link.value ? (e) => { e.preventDefault(); copyEmail() } : undefined}
+                onClick={
+                  link.value
+                    ? (e) => {
+                        e.preventDefault()
+                        copyEmail()
+                      }
+                    : undefined
+                }
                 className="group flex items-center justify-between rounded-lg border border-border px-6 py-4 transition-colors hover:border-fg-subtle hover:bg-bg-subtle"
               >
                 <span className="font-mono text-sm text-fg">{link.label}</span>

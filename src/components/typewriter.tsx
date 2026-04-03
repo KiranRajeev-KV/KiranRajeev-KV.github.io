@@ -47,7 +47,16 @@ export function Typewriter({
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [currentChar, currentPhrase, isDeleting, isFading, phrases, typingSpeed, deletingSpeed, pauseDuration])
+  }, [
+    currentChar,
+    currentPhrase,
+    isDeleting,
+    isFading,
+    phrases,
+    typingSpeed,
+    deletingSpeed,
+    pauseDuration,
+  ])
 
   const phrase = phrases[currentPhrase]
 

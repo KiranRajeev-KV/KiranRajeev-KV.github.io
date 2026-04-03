@@ -18,9 +18,7 @@ export function FilterTags({ active, onChange }: FilterTagsProps) {
           transition={{ delay: i * 0.05 }}
           onClick={() => onChange(option)}
           className={`relative px-3 py-1.5 transition-colors ${
-            active === option
-              ? 'text-fg'
-              : 'text-fg-muted hover:text-fg'
+            active === option ? 'text-fg' : 'text-fg-muted hover:text-fg'
           }`}
         >
           {option}

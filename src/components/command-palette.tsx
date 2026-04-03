@@ -21,7 +21,15 @@ const typeLabels: Record<string, string> = {
   blog: 'writing',
 }
 
-function HighlightedText({ text, matches, className }: { text: string; matches?: any[]; className?: string }) {
+function HighlightedText({
+  text,
+  matches,
+  className,
+}: {
+  text: string
+  matches?: any[]
+  className?: string
+}) {
   if (!matches || matches.length === 0) {
     return <span className={className}>{text}</span>
   }
@@ -41,7 +49,9 @@ function HighlightedText({ text, matches, className }: { text: string; matches?:
       {chars.map((char, i) => (
         <span
           key={i}
-          className={allIndices.has(i) ? 'text-accent underline decoration-accent/40 underline-offset-2' : ''}
+          className={
+            allIndices.has(i) ? 'text-accent underline decoration-accent/40 underline-offset-2' : ''
+          }
         >
           {char}
         </span>
@@ -159,7 +169,12 @@ export function CommandPalette() {
               ) : (
                 resultItems.map((item: SearchItem, i: number) => {
                   const isSelected = i === selectedIndex
-                  const resultMatch = Array.isArray(results) && results[i] ? ('matches' in results[i] ? results[i].matches : undefined) : undefined
+                  const resultMatch =
+                    Array.isArray(results) && results[i]
+                      ? 'matches' in results[i]
+                        ? results[i].matches
+                        : undefined
+                      : undefined
                   const Icon = typeIcons[item.type]
 
                   return (

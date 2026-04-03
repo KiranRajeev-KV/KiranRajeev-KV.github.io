@@ -44,7 +44,9 @@ function BlogPage() {
           <div className="mb-12 flex items-center justify-between">
             <div>
               <h1 className="font-serif text-4xl text-fg">Writing</h1>
-              <p className="mt-2 font-serif text-base text-fg-muted">Thoughts on systems, design, and building things from scratch.</p>
+              <p className="mt-2 font-serif text-base text-fg-muted">
+                Thoughts on systems, design, and building things from scratch.
+              </p>
             </div>
             <SearchTrigger />
           </div>
@@ -54,7 +56,10 @@ function BlogPage() {
           <Section className="mb-16">
             <Link to="/blog/$slug" params={{ slug: featured.slug }} className="group block">
               <div className="mb-3 flex items-center gap-3 font-mono text-xs text-fg-subtle">
-                <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: featured.categoryColor }} />
+                <span
+                  className="inline-block h-2 w-2 rounded-full"
+                  style={{ backgroundColor: featured.categoryColor }}
+                />
                 {featuredMeta.map((item, i) => (
                   <span key={item}>
                     {item}
@@ -85,7 +90,10 @@ function BlogPage() {
                 >
                   <div>
                     <div className="mb-1.5 flex items-center gap-3 font-mono text-xs text-fg-subtle">
-                      <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: post.categoryColor }} />
+                      <span
+                        className="inline-block h-2 w-2 rounded-full"
+                        style={{ backgroundColor: post.categoryColor }}
+                      />
                       {meta.map((item, j) => (
                         <span key={item}>
                           {item}
@@ -98,7 +106,9 @@ function BlogPage() {
                       <span className="absolute bottom-0 left-0 h-px w-0 bg-fg transition-all duration-300 group-hover:w-full" />
                     </h3>
                   </div>
-                  <span className="mt-1 font-mono text-fg-subtle transition-transform group-hover:translate-x-1">→</span>
+                  <span className="mt-1 font-mono text-fg-subtle transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
                 </Link>
               </Section>
             )
@@ -106,9 +116,7 @@ function BlogPage() {
         </div>
 
         {blogPosts.length === 0 && (
-          <div className="py-16 text-center font-mono text-sm text-fg-subtle">
-            No writing yet.
-          </div>
+          <div className="py-16 text-center font-mono text-sm text-fg-subtle">No writing yet.</div>
         )}
       </div>
     </main>

@@ -3,11 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "oxlint --fix",
+      "prettier --write"
+    ],
+    "*.{css,json,md,mdx}": [
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "oxlint",
+    "format": "prettier --write \"**/*.{ts,tsx,css,json,md,mdx}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,css,json,md,mdx}\"",
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.168.10",
@@ -33,7 +46,11 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "motion": "^12.38.0",
+    "oxlint": "^1.58.0",
+    "prettier": "^3.8.1",
     "tailwindcss": "^4.2.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.0",

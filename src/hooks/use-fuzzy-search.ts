@@ -24,10 +24,13 @@ export function useFuzzySearch(items: SearchItem[]) {
 
   const results = useMemo(() => {
     if (!query.trim()) return items.slice(0, 8)
-    return fuse.search(query).slice(0, 8).map((r) => ({
-      item: r.item,
-      matches: r.matches,
-    }))
+    return fuse
+      .search(query)
+      .slice(0, 8)
+      .map((r) => ({
+        item: r.item,
+        matches: r.matches,
+      }))
   }, [query, fuse, items])
 
   return { query, setQuery, results }

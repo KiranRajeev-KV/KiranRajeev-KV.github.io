@@ -62,12 +62,16 @@ function ProjectsPage() {
         {abandonedProjects.length > 0 && (
           <Section delay={0.3} className="mt-24">
             <h2 className="mb-2 font-serif text-2xl text-fg">What I Did Not Finish</h2>
-            <p className="mb-8 font-mono text-sm text-fg-muted">Not every project ships. These taught me the most.</p>
+            <p className="mb-8 font-mono text-sm text-fg-muted">
+              Not every project ships. These taught me the most.
+            </p>
             <div className="space-y-4">
               {abandonedProjects.map((p) => (
                 <div key={p.title} className="rounded-lg border border-border p-6">
                   <h3 className="font-mono text-sm font-medium text-fg">{p.title}</h3>
-                  <p className="mt-1 font-serif text-sm leading-relaxed text-fg-muted">{p.description}</p>
+                  <p className="mt-1 font-serif text-sm leading-relaxed text-fg-muted">
+                    {p.description}
+                  </p>
                   <div className="mt-3 flex gap-1 font-mono text-xs text-fg-subtle">
                     {p.stack.map((tech, i) => (
                       <span key={tech}>

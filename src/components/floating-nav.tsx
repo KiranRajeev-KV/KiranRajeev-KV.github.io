@@ -26,9 +26,7 @@ export function FloatingNav() {
             <Link
               to={item.path}
               className={`relative block rounded-full px-3 py-1.5 text-sm font-mono transition-colors ${
-                location.pathname === item.path
-                  ? 'text-fg'
-                  : 'text-fg-muted hover:text-fg'
+                location.pathname === item.path ? 'text-fg' : 'text-fg-muted hover:text-fg'
               }`}
             >
               {item.label}

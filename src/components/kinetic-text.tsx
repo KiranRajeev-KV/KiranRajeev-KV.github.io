@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 
-const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
+const GLYPHS =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
 
 interface KineticTextProps {
   text: string
@@ -23,7 +24,7 @@ export function KineticText({ text, className = '' }: KineticTextProps) {
     const interval = 50
     let elapsed = 0
     const chars = text.split('')
-    const resolved = new Array(chars.length).fill(false)
+    const resolved = Array.from({ length: chars.length }, () => false)
 
     const timer = setInterval(() => {
       elapsed += interval

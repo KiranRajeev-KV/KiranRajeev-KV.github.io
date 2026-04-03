@@ -24,7 +24,10 @@ function AboutPage() {
               </blockquote>
               <div className="prose prose-fg max-w-none">
                 {about.bio.split('\n\n').map((paragraph, i) => (
-                  <p key={i} className="mb-4 font-serif text-base leading-relaxed text-fg last:mb-0">
+                  <p
+                    key={i}
+                    className="mb-4 font-serif text-base leading-relaxed text-fg last:mb-0"
+                  >
                     {paragraph}
                   </p>
                 ))}
@@ -43,27 +46,39 @@ function AboutPage() {
               <div className="sticky top-32 rounded-lg border border-border p-6">
                 <dl className="space-y-4">
                   <div>
-                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Location</dt>
+                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                      Location
+                    </dt>
                     <dd className="mt-1 font-mono text-sm text-fg">{about.location}</dd>
                   </div>
                   <div>
-                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">University</dt>
+                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                      University
+                    </dt>
                     <dd className="mt-1 font-mono text-sm text-fg">{about.university}</dd>
                   </div>
                   <div>
-                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Degree</dt>
+                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                      Degree
+                    </dt>
                     <dd className="mt-1 font-mono text-sm text-fg">{about.major}</dd>
                   </div>
                   <div>
-                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Graduation</dt>
+                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                      Graduation
+                    </dt>
                     <dd className="mt-1 font-mono text-sm text-fg">{about.graduation}</dd>
                   </div>
                   <div className="border-t border-border pt-4">
-                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Currently Building</dt>
+                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                      Currently Building
+                    </dt>
                     <dd className="mt-1 font-mono text-sm text-fg">{about.currentlyBuilding}</dd>
                   </div>
                   <div>
-                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Currently Reading</dt>
+                    <dt className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                      Currently Reading
+                    </dt>
                     <dd className="mt-1 font-mono text-sm text-fg">{about.currentlyReading}</dd>
                   </div>
                 </dl>
@@ -80,7 +95,9 @@ function AboutPage() {
         </div>
 
         <Section delay={0.2} className="mt-20">
-          <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">Skills</h2>
+          <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+            Skills
+          </h2>
           {Object.entries(about.skills).map(([label, skills]) => (
             <SkillCloud key={label} label={label} skills={skills} />
           ))}

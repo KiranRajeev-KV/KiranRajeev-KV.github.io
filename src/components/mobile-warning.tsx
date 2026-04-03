@@ -6,7 +6,7 @@ const lines = [
   { text: '', delay: 200 },
   { text: 'This portfolio was designed and', delay: 400 },
   { text: 'built for a wider screen. Mobile', delay: 550 },
-  { text: 'works, but you\'re missing the', delay: 700 },
+  { text: "works, but you're missing the", delay: 700 },
   { text: 'good stuff — custom cursor,', delay: 850 },
   { text: 'hover animations, precise layout.', delay: 1000 },
   { text: '', delay: 1150 },

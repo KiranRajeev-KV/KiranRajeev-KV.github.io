@@ -24,5 +24,11 @@ jobs:
       - name: Type check
         run: bunx tsc --noEmit
 
+      - name: Lint (oxlint)
+        run: bunx oxlint
+
+      - name: Format check (prettier)
+        run: bunx prettier --check "**/*.{ts,tsx,css,json,md,mdx}"
+
       - name: Build
         run: bun run build

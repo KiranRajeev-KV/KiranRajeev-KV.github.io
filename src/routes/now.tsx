@@ -25,7 +25,9 @@ function NowPage() {
 
         <Section delay={0.2}>
           <div className="mt-12 rounded-lg border border-border p-6">
-            <h3 className="mb-4 font-mono text-xs uppercase tracking-widest text-fg-subtle">Current Stack</h3>
+            <h3 className="mb-4 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+              Current Stack
+            </h3>
             <div className="flex flex-wrap gap-2 font-mono text-sm text-fg">
               {now.currentStack.map((tech) => (
                 <span key={tech} className="rounded-full border border-border px-3 py-1">

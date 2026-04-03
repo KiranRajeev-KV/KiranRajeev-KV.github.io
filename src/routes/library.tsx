@@ -39,9 +39,10 @@ function LibraryPage() {
     setItems(searchItems)
   }, [setItems])
 
-  const filtered = activeFilter === 'All'
-    ? libraryItems
-    : libraryItems.filter((item) => item.type === typeMap[activeFilter])
+  const filtered =
+    activeFilter === 'All'
+      ? libraryItems
+      : libraryItems.filter((item) => item.type === typeMap[activeFilter])
 
   return (
     <main className="min-h-screen px-6 py-32">
@@ -57,9 +58,7 @@ function LibraryPage() {
           <blockquote className="mb-6 border-l-2 border-border pl-4 font-serif text-lg italic text-fg-subtle">
             "A reader lives a thousand lives before he dies." — George R.R. Martin
           </blockquote>
-          <p className="mb-6 font-mono text-xs text-fg-subtle">
-            {libraryItems.length} items
-          </p>
+          <p className="mb-6 font-mono text-xs text-fg-subtle">{libraryItems.length} items</p>
         </Section>
 
         <Section delay={0.05}>
@@ -75,9 +74,7 @@ function LibraryPage() {
                   setExpandedId(null)
                 }}
                 className={`relative px-3 py-1.5 transition-colors ${
-                  activeFilter === option
-                    ? 'text-fg'
-                    : 'text-fg-muted hover:text-fg'
+                  activeFilter === option ? 'text-fg' : 'text-fg-muted hover:text-fg'
                 }`}
               >
                 {option}

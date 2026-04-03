@@ -31,7 +31,10 @@ function BlogPostNotFound() {
         <Section>
           <h1 className="font-mono text-lg text-fg">$ cd /post-you-wanted</h1>
           <p className="mt-2 font-mono text-sm text-fg-muted">bash: no such file or directory</p>
-          <Link to="/blog" className="mt-4 inline-block font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg">
+          <Link
+            to="/blog"
+            className="mt-4 inline-block font-mono text-sm text-fg-muted underline decoration-border underline-offset-4 transition-colors hover:text-fg"
+          >
             ← back to writing
           </Link>
         </Section>
@@ -43,7 +46,8 @@ function BlogPostNotFound() {
 function BlogPostPage() {
   const { slug } = Route.useParams()
   const post = blogPosts.find((p) => p.slug === slug)
-  const MDXContent = (mdxModules[`../../content/${slug}.mdx`] as { default: React.ComponentType })?.default
+  const MDXContent = (mdxModules[`../../content/${slug}.mdx`] as { default: React.ComponentType })
+    ?.default
 
   if (!MDXContent) {
     return <BlogPostNotFound />
@@ -58,7 +62,10 @@ function BlogPostPage() {
         {post && (
           <Section>
             <div className="mb-8 flex items-center gap-3 font-mono text-xs text-fg-subtle">
-              <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: post.categoryColor }} />
+              <span
+                className="inline-block h-2 w-2 rounded-full"
+                style={{ backgroundColor: post.categoryColor }}
+              />
               {meta.map((item, i) => (
                 <span key={item}>
                   {item}
@@ -77,10 +84,14 @@ function BlogPostPage() {
                 h2: (props) => <h2 className="mt-12 mb-4 font-serif text-2xl text-fg" {...props} />,
                 h3: (props) => <h3 className="mt-8 mb-3 font-serif text-xl text-fg" {...props} />,
                 code: (props) => {
-                  const isInline = typeof props.children === 'string' && !props.children?.toString().includes('\n')
+                  const isInline =
+                    typeof props.children === 'string' && !props.children?.toString().includes('\n')
                   if (isInline) {
                     return (
-                      <code className="rounded bg-bg-subtle px-1.5 py-0.5 font-mono text-sm" {...props} />
+                      <code
+                        className="rounded bg-bg-subtle px-1.5 py-0.5 font-mono text-sm"
+                        {...props}
+                      />
                     )
                   }
                   return (
@@ -101,10 +112,16 @@ function BlogPostPage() {
                   )
                 },
                 a: (props) => (
-                  <a className="text-accent underline decoration-border underline-offset-4 hover:decoration-accent" {...props} />
+                  <a
+                    className="text-accent underline decoration-border underline-offset-4 hover:decoration-accent"
+                    {...props}
+                  />
                 ),
                 blockquote: (props) => (
-                  <blockquote className="my-6 border-l-2 border-border pl-4 font-serif italic text-fg-muted" {...props} />
+                  <blockquote
+                    className="my-6 border-l-2 border-border pl-4 font-serif italic text-fg-muted"
+                    {...props}
+                  />
                 ),
               }}
             >

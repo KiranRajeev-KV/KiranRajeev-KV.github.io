@@ -8,7 +8,15 @@ export function AmbientGrid() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
-        <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
+        <line
+          x1="0"
+          y1="0"
+          x2="100%"
+          y2="100%"
+          stroke="currentColor"
+          strokeWidth="0.5"
+          opacity="0.5"
+        />
       </svg>
     </div>
   )
