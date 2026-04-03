@@ -3,7 +3,6 @@ import { about } from '../data/about'
 import { Section } from '../components/section'
 import { SkillCloud } from '../components/skill-tag'
 import { Timeline } from '../components/timeline'
-import { NothingClock } from '../components/nothing-clock'
 import { TextReveal } from '../components/text-reveal'
 
 export const Route = createFileRoute('/about')({
@@ -45,7 +44,6 @@ function AboutPage() {
 
           <div>
             <Section delay={0.15}>
-              <NothingClock />
               <div className="sticky top-32 rounded-lg border border-border p-6">
                 <dl className="space-y-4">
                   <div>
