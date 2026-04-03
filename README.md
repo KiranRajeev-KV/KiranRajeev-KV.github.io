@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio site with a "terminal meets editorial" aesthetic. Monospace meets serif, precise grid with intentional breaks. Dark-only, animation-heavy, and obsessively designed.
 
-Currently, two official plugins are available:
+**Live:** [your-domain.com](#)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- **Framework:** React 19 + Vite 8 + TypeScript (strict)
+- **Routing:** TanStack Router (file-based, type-safe)
+- **Styling:** Tailwind CSS v4 with custom CSS theme variables
+- **Animation:** Motion (v12) — spring physics, layout animations, page transitions
+- **Content:** MDX for blog posts, typed TS files for all other data
+- **Search:** Fuse.js fuzzy search via `Cmd+K` command palette
+- **Icons:** Lucide React
+- **Package Manager:** Bun
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
+```bash
+# Install dependencies
+bun install
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Start dev server
+bun dev
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Build for production
+bun run build
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Preview production build
+bun run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── routes/              # File-based routes (TanStack Router)
+│   ├── __root.tsx       # Root layout (nav, cursor, search, footer)
+│   ├── index.tsx        # Home — kinetic text, typewriter, showcase
+│   ├── about.tsx        # About — bio, skills, timeline
+│   ├── projects.tsx     # Projects — card grid, drawer, abandoned
+│   ├── library.tsx      # Library — books, papers, articles
+│   ├── blog/            # Blog — index + MDX post renderer
+│   ├── til.tsx          # TIL — micro-posts feed
+│   ├── now.tsx          # Now — current focus
+│   └── 404.tsx          # Terminal-style 404
+├── components/          # Reusable UI components
+├── data/                # All content as typed TS files
+├── content/             # MDX blog posts
+├── context/             # React contexts (search, cursor)
+├── hooks/               # Custom hooks (search, intersection)
+└── styles/              # Global CSS + Tailwind theme
+```
+
+## Features
+
+- **Kinetic text** — glyph-scramble name reveal on first load (sessionStorage)
+- **Custom cursor** — terminal-style blinking caret, toggleable, desktop-only
+- **Command palette** — `Cmd+K` fuzzy search across projects, blog, and library
+- **Responsive nav** — floating pill on desktop, bottom tab bar on mobile
+- **Mobile warning** — terminal-style overlay on small viewports
+- **Scroll animations** — fade + slide up via IntersectionObserver
+- **Project drawer** — slide-in panel with problem/solution/lessons
+- **Library catalog** — expandable cards with personal notes, per-type filtering
+- **MDX blog** — custom prose styling, code blocks with copy-on-hover
+- **Dark-only theme** — warm dark palette, no toggle
+
+## Adding Content
+
+### Projects
+Edit `src/data/projects.ts`. Each project has `showcase: true` to appear on the homepage.
+
+### Library Items
+Edit `src/data/library.ts`. Supports `book`, `paper`, and `article` types with `read`/`reading`/`queued` status.
+
+### Blog Posts
+1. Add metadata to `src/data/blog.ts`
+2. Create an `.mdx` file in `src/content/` with the matching slug
+3. Set `wordCount` for read time calculation (`wc -w src/content/<slug>.mdx`)
+
+### TIL Entries
+Edit `src/data/til.ts`. Keep entries to 1-3 sentences.
+
+### Now Page
+Edit `src/data/now.ts`. Update `lastUpdated`, `paragraphs`, and `currentStack`.
+
+### About Page
+Edit `src/data/about.ts`. Skills are a `Record<string, Skill[]>` — add any new category and it renders automatically.
+
+## License
+
+MIT
