@@ -4,6 +4,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useSearch, type SearchItem } from '../context/search-context'
 import { useFuzzySearch } from '../hooks/use-fuzzy-search'
 import { Search, Code2, BookOpen, FileText, Newspaper, PenLine } from 'lucide-react'
+import { useToast } from './toast'
 
 const typeIcons: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
   project: Code2,
@@ -66,6 +67,7 @@ export function CommandPalette() {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
+  const { showToast } = useToast()
 
   const resultItems = Array.isArray(results)
     ? results.map((r: any) => ('item' in r ? r.item : r)).filter(Boolean)
@@ -113,9 +115,32 @@ export function CommandPalette() {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setSelectedIndex((i) => Math.max(i - 1, 0))
-    } else if (e.key === 'Enter' && resultItems[selectedIndex]) {
+    } else if (e.key === 'Enter') {
       e.preventDefault()
-      handleSelect(resultItems[selectedIndex])
+      if (query.startsWith('/')) {
+        handleCommand(query.slice(1))
+      } else if (resultItems[selectedIndex]) {
+        handleSelect(resultItems[selectedIndex])
+      }
+    }
+  }
+
+  const handleCommand = (cmd: string) => {
+    const commands: Record<string, string> = {
+      coffee: '☕ powered by too much coffee',
+      help: 'try /coffee or /exit',
+      exit: '',
+    }
+
+    if (cmd === 'exit') {
+      close()
+      return
+    }
+
+    const msg = commands[cmd]
+    if (msg) {
+      showToast(msg)
+      close()
     }
   }
 
