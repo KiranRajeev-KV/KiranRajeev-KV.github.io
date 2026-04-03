@@ -1,4 +1,5 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { useEffect } from 'react'
 import { AnimatePresence } from 'motion/react'
 import { CustomCursor } from '../components/custom-cursor'
 import { FloatingNav } from '../components/floating-nav'
@@ -22,6 +23,14 @@ function CommandPaletteWrapper() {
 }
 
 function RootComponent() {
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('redirect')
+    if (redirect) {
+      sessionStorage.removeItem('redirect')
+      window.history.replaceState(null, '', redirect)
+    }
+  }, [])
+
   return (
     <>
       <ProgressBar />
