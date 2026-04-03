@@ -49,6 +49,9 @@ function BlogPostPage() {
     return <BlogPostNotFound />
   }
 
+  const readTime = post?.wordCount ? `${Math.ceil(post.wordCount / 200)} min` : ''
+  const meta = [post?.category, post?.date, readTime].filter(Boolean)
+
   return (
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-[65ch]">
@@ -56,11 +59,12 @@ function BlogPostPage() {
           <Section>
             <div className="mb-8 flex items-center gap-3 font-mono text-xs text-fg-subtle">
               <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: post.categoryColor }} />
-              <span>{post.category}</span>
-              <span>·</span>
-              <span>{post.date}</span>
-              <span>·</span>
-              <span>{post.readTime}</span>
+              {meta.map((item, i) => (
+                <span key={item}>
+                  {item}
+                  {i < meta.length - 1 && <span>·</span>}
+                </span>
+              ))}
             </div>
             <h1 className="mb-8 font-serif text-4xl text-fg">{post.title}</h1>
           </Section>

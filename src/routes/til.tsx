@@ -35,6 +35,12 @@ function TilPage() {
             </Section>
           ))}
         </div>
+
+        {tilPosts.length === 0 && (
+          <div className="py-16 text-center font-mono text-sm text-fg-subtle">
+            Nothing here yet. Still learning.
+          </div>
+        )}
       </div>
     </main>
   )

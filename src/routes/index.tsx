@@ -46,7 +46,7 @@ function HomePage() {
         id: p.slug,
         type: 'blog' as const,
         title: p.title,
-        subtitle: `${p.category} · ${p.readTime}`,
+        subtitle: p.category,
         description: p.teaser,
         url: `/blog/${p.slug}`,
         tags: [p.category],
@@ -68,7 +68,7 @@ function HomePage() {
         <CursorToggle />
         <div className="relative z-10 flex flex-col items-center gap-6 text-center">
           <KineticText
-            text="Alex Chen"
+            text="Kiran Rajeev"
             className="font-serif text-5xl font-bold tracking-tight text-fg sm:text-7xl md:text-8xl"
           />
           <Typewriter phrases={[
@@ -120,7 +120,7 @@ function HomePage() {
       <section className="px-6 py-24">
         <div className="mx-auto max-w-5xl">
           <Section delay={0.1}>
-            <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">Selected Work</h2>
+            <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">Selected Projects</h2>
           </Section>
           <div className="grid gap-6 md:grid-cols-2">
             {projects.filter((p) => p.showcase).map((project, i) => (
@@ -131,10 +131,9 @@ function HomePage() {
                   className="group block rounded-lg border border-border p-6 transition-all hover:border-fg-subtle hover:shadow-sm"
                   style={{ '--accent': project.accent } as React.CSSProperties}
                 >
-                  <div className="mb-2 h-0.5 w-8 bg-[var(--accent)] transition-all group-hover:w-12" />
+                  <div className="mb-2 h-0.5 w-8 bg-(--accent) transition-all group-hover:w-12" />
                   <h3 className="font-serif text-xl text-fg">{project.title}</h3>
                   <p className="mt-1 text-sm text-fg-muted">{project.description}</p>
-                  <p className="mt-3 font-mono text-xs text-fg-subtle">{project.stack.join(' · ')}</p>
                 </Link>
               </Section>
             ))}

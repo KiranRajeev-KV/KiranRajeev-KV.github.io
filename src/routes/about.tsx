@@ -28,9 +28,11 @@ function AboutPage() {
               </div>
             </Section>
 
-            <Section delay={0.1} className="mt-12">
-              <Timeline items={about.timeline} />
-            </Section>
+            {about.timeline.length > 0 && (
+              <Section delay={0.1} className="mt-12">
+                <Timeline items={about.timeline} />
+              </Section>
+            )}
           </div>
 
           <div>
@@ -76,9 +78,9 @@ function AboutPage() {
 
         <Section delay={0.2} className="mt-20">
           <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">Skills</h2>
-          <SkillCloud label="Languages" skills={about.skills.languages} />
-          <SkillCloud label="Frameworks" skills={about.skills.frameworks} />
-          <SkillCloud label="Tools" skills={about.skills.tools} />
+          {Object.entries(about.skills).map(([label, skills]) => (
+            <SkillCloud key={label} label={label} skills={skills} />
+          ))}
         </Section>
       </div>
     </main>
