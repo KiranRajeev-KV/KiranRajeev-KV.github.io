@@ -26,8 +26,8 @@ export function MobileNav() {
             <Link
               key={item.path}
               to={item.path}
-              className={`relative flex flex-1 flex-col items-center justify-center py-3 font-mono text-xs transition-colors ${
-                isActive ? 'text-fg' : 'text-fg-subtle active:text-fg'
+              className={`relative flex flex-1 flex-col items-center justify-center py-3 font-mono text-xs transition-all duration-200 ${
+                isActive ? 'text-fg' : 'text-fg-subtle active:text-fg active:scale-[1.05]'
               }`}
             >
               {item.label}

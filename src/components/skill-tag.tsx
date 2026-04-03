@@ -22,11 +22,11 @@ export function SkillTag({ skill }: SkillTagProps) {
   return (
     <motion.div
       className="group relative"
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.03 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
     >
       <span
-        className={`inline-block cursor-default rounded-full border border-border bg-bg-subtle font-mono text-fg transition-colors hover:border-fg-subtle hover:bg-bg ${sizeMap[skill.weight as keyof typeof sizeMap] || sizeMap[3]}`}
+        className={`inline-block cursor-default rounded-full border border-border bg-bg-subtle font-mono text-fg transition-all duration-200 hover:border-fg-subtle hover:bg-bg hover:scale-[1.03] ${sizeMap[skill.weight as keyof typeof sizeMap] || sizeMap[3]}`}
       >
         {skill.name}
       </span>

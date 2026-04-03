@@ -83,7 +83,7 @@ export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
           ? 'bg-bg-subtle'
           : isExpandable
             ? 'bg-bg-elevated hover:bg-bg-subtle'
-            : 'bg-bg-elevated'
+            : 'bg-bg-elevated hover:bg-bg-subtle/50'
       }`}
       style={{ borderLeftWidth: '3px', borderLeftColor: item.accent }}
       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -152,14 +152,26 @@ export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
             >
               <div className="border-t border-border px-5 pb-5 pt-4">
                 {item.fullNote && (
-                  <p className="font-serif text-sm leading-relaxed text-fg">{item.fullNote}</p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ delay: 0.08, duration: 0.2 }}
+                    className="font-serif text-sm leading-relaxed text-fg"
+                  >
+                    {item.fullNote}
+                  </motion.p>
                 )}
                 {item.link && (
-                  <a
+                  <motion.a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ delay: 0.16, duration: 0.2 }}
                     className="mt-4 inline-flex items-center gap-1 font-mono text-xs text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover"
                   >
                     View source
@@ -176,7 +188,7 @@ export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
                         d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
                       />
                     </svg>
-                  </a>
+                  </motion.a>
                 )}
               </div>
             </motion.div>
