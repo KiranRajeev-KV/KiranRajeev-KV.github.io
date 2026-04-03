@@ -54,6 +54,9 @@ function LibraryPage() {
           <p className="mb-8 font-serif text-base text-fg-muted">
             Books, papers, and things that shaped how I think.
           </p>
+          <blockquote className="mb-6 border-l-2 border-border pl-4 font-serif text-lg italic text-fg-subtle">
+            "A reader lives a thousand lives before he dies." — George R.R. Martin
+          </blockquote>
           <p className="mb-6 font-mono text-xs text-fg-subtle">
             {libraryItems.length} items
           </p>

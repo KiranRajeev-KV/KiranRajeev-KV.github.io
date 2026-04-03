@@ -19,6 +19,9 @@ function AboutPage() {
         <div className="grid gap-16 md:grid-cols-[1fr_280px]">
           <div>
             <Section>
+              <blockquote className="mb-8 border-l-2 border-border pl-4 font-serif text-lg italic text-fg-subtle">
+                "The best way to predict the future is to invent it." — Alan Kay
+              </blockquote>
               <div className="prose prose-fg max-w-none">
                 {about.bio.split('\n\n').map((paragraph, i) => (
                   <p key={i} className="mb-4 font-serif text-base leading-relaxed text-fg last:mb-0">

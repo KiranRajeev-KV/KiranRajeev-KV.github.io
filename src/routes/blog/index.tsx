@@ -42,7 +42,10 @@ function BlogPage() {
       <div className="mx-auto max-w-5xl">
         <Section>
           <div className="mb-12 flex items-center justify-between">
-            <h1 className="font-serif text-4xl text-fg">Writing</h1>
+            <div>
+              <h1 className="font-serif text-4xl text-fg">Writing</h1>
+              <p className="mt-2 font-serif text-base text-fg-muted">Thoughts on systems, design, and building things from scratch.</p>
+            </div>
             <SearchTrigger />
           </div>
         </Section>

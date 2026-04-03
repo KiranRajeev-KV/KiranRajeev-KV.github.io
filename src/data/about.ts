@@ -33,21 +33,20 @@ export const about: AboutData = {
   graduation: 'Expected August 2027',
   currentlyBuilding: 'vox — a real-time voice-to-text tool with Whisper transcription and async LLM cleanup',
   currentlyReading: 'Designing Data-Intensive Applications by Martin Kleppmann (first time)',
-  bio: `I am a B.Tech Computer Science student at Amrita Vishwa Vidyapeetham who likes building things from scratch — not because it is efficient, but because it is the only way to actually understand how they work.
+  bio: `I am a final-year B.Tech Computer Science student at Amrita Vishwa Vidyapeetham who likes building things from scratch — not because it is efficient, but because it is the only way to actually understand how they work.
 
 I spend most of my time writing Go, reading research papers, and occasionally building full-stack apps when I want to make something people can actually see. I care about craft — not in a precious way, but in a "this should work correctly and feel intentional" way.
 
-When I am not at a computer, I am probably reading. My bookshelf ranges from distributed systems algorithms to Adlerian psychology, and I do not see the contradiction.
-
-I tried learning Rust once. Thought the borrow checker was a personality disorder.`,
+When I am not at a computer, I am probably reading or yapping to friends about something I read. My bookshelf does not pick a side — distributed systems algorithms sit next to Adlerian psychology, which sits next to whatever fiction I am pretending to be well-read about. I do not see the contradiction.`,
   skills: {
     Languages: [
       { name: 'Go', weight: 3, note: 'Daily driver' },
       { name: 'TypeScript', weight: 3, note: 'Prefer over JS' },
+      { name: 'JavaScript', weight: 3, note: 'When TS is overkill' },
       { name: 'Python', weight: 3, note: 'ML tooling' },
       { name: 'C++', weight: 3, note: 'DSA' },
       { name: 'SQL', weight: 3, note: 'Raw queries, no ORM' },
-      { name: 'Rust', weight: 3, note: 'Thought ownership was abolished in 1947' },
+      { name: 'Bash', weight: 3, note: 'Scripting and dotfiles' },
     ],
     Frontend: [
       { name: 'React / Next.js', weight: 3, note: 'Production apps' },
@@ -63,6 +62,7 @@ I tried learning Rust once. Thought the borrow checker was a personality disorde
     ],
     Data: [
       { name: 'PostgreSQL', weight: 3, note: 'pgvector, GIN indexes' },
+      { name: 'MySQL', weight: 3, note: 'Relational workhorse' },
       { name: 'SQLite', weight: 3, note: 'Lightweight apps' },
       { name: 'Redis', weight: 3, note: 'Caching, streams' },
       { name: 'Qdrant', weight: 3, note: 'Vector search' },
@@ -73,10 +73,14 @@ I tried learning Rust once. Thought the borrow checker was a personality disorde
       { name: 'Docker', weight: 3, note: 'Compose for everything' },
       { name: 'Git', weight: 3, note: 'PR-driven workflow' },
       { name: 'Linux', weight: 3, note: 'Arch btw' },
+      { name: 'AWS', weight: 3, note: 'Cloud infrastructure' },
+      { name: 'GCP', weight: 3, note: 'Cloud infrastructure' },
+      { name: 'Bruno', weight: 3, note: 'API testing' },
       { name: 'Prometheus + Grafana', weight: 3, note: 'Anokha observability' },
     ],
     AI: [
       { name: 'Gemini API', weight: 3, note: 'LLM pipelines' },
+      { name: 'OpenRouter', weight: 3, note: 'Multi-provider LLM routing' },
       { name: 'Ollama', weight: 3, note: 'Local LLM inference' },
       { name: 'ONNX Runtime', weight: 3, note: 'On-device embeddings' },
     ],
