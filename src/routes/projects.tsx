@@ -6,6 +6,7 @@ import { ProjectCard } from '../components/project-card'
 import { ProjectDrawer } from '../components/project-drawer'
 import { useSearch, type SearchItem } from '../context/search-context'
 import { SearchTrigger } from '../components/search-trigger'
+import { TextReveal } from '../components/text-reveal'
 import type { Project as ProjectType } from '../data/projects'
 
 export const Route = createFileRoute('/projects')({
@@ -46,7 +47,7 @@ function ProjectsPage() {
       <div className="mx-auto max-w-5xl">
         <Section>
           <div className="mb-8 flex items-center justify-between">
-            <h1 className="font-serif text-4xl text-fg">Projects</h1>
+            <TextReveal text="Projects" className="font-serif text-4xl text-fg" />
             <SearchTrigger />
           </div>
         </Section>

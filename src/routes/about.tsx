@@ -3,6 +3,8 @@ import { about } from '../data/about'
 import { Section } from '../components/section'
 import { SkillCloud } from '../components/skill-tag'
 import { Timeline } from '../components/timeline'
+import { NothingClock } from '../components/nothing-clock'
+import { TextReveal } from '../components/text-reveal'
 
 export const Route = createFileRoute('/about')({
   component: AboutPage,
@@ -13,7 +15,7 @@ function AboutPage() {
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <Section>
-          <h1 className="mb-16 font-serif text-4xl text-fg">About</h1>
+          <TextReveal text="About" className="mb-16 font-serif text-4xl text-fg" />
         </Section>
 
         <div className="grid gap-16 md:grid-cols-[1fr_280px]">
@@ -43,6 +45,7 @@ function AboutPage() {
 
           <div>
             <Section delay={0.15}>
+              <NothingClock />
               <div className="sticky top-32 rounded-lg border border-border p-6">
                 <dl className="space-y-4">
                   <div>

@@ -2,8 +2,10 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { blogPosts } from '../../data/blog'
 import { Section } from '../../components/section'
+import { StaggerList } from '../../components/stagger-list'
 import { useSearch, type SearchItem } from '../../context/search-context'
 import { SearchTrigger } from '../../components/search-trigger'
+import { TextReveal } from '../../components/text-reveal'
 
 function formatReadTime(wordCount: number): string {
   if (wordCount <= 0) return ''
@@ -43,7 +45,7 @@ function BlogPage() {
         <Section>
           <div className="mb-12 flex items-center justify-between">
             <div>
-              <h1 className="font-serif text-4xl text-fg">Writing</h1>
+              <TextReveal text="Writing" className="font-serif text-4xl text-fg" />
               <p className="mt-2 font-serif text-base text-fg-muted">
                 Thoughts on systems, design, and building things from scratch.
               </p>
@@ -77,43 +79,42 @@ function BlogPage() {
           </Section>
         )}
 
-        <div className="space-y-0">
-          {rest.map((post, i) => {
+        <StaggerList className="space-y-0" staggerDelay={0.05} yOffset={10}>
+          {rest.map((post) => {
             const readTime = formatReadTime(post.wordCount)
             const meta = [post.category, post.date, readTime].filter(Boolean)
             return (
-              <Section key={post.slug} delay={0.05 * i}>
-                <Link
-                  to="/blog/$slug"
-                  params={{ slug: post.slug }}
-                  className="group flex items-start justify-between border-b border-border py-6"
-                >
-                  <div>
-                    <div className="mb-1.5 flex items-center gap-3 font-mono text-xs text-fg-subtle">
-                      <span
-                        className="inline-block h-2 w-2 rounded-full"
-                        style={{ backgroundColor: post.categoryColor }}
-                      />
-                      {meta.map((item, j) => (
-                        <span key={item}>
-                          {item}
-                          {j < meta.length - 1 && <span>·</span>}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="relative inline-block font-serif text-lg text-fg">
-                      {post.title}
-                      <span className="absolute bottom-0 left-0 h-px w-0 bg-fg transition-all duration-300 group-hover:w-full" />
-                    </h3>
+              <Link
+                key={post.slug}
+                to="/blog/$slug"
+                params={{ slug: post.slug }}
+                className="group flex items-start justify-between border-b border-border py-6"
+              >
+                <div>
+                  <div className="mb-1.5 flex items-center gap-3 font-mono text-xs text-fg-subtle">
+                    <span
+                      className="inline-block h-2 w-2 rounded-full"
+                      style={{ backgroundColor: post.categoryColor }}
+                    />
+                    {meta.map((item, j) => (
+                      <span key={item}>
+                        {item}
+                        {j < meta.length - 1 && <span>·</span>}
+                      </span>
+                    ))}
                   </div>
-                  <span className="mt-1 font-mono text-fg-subtle transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              </Section>
+                  <h3 className="relative inline-block font-serif text-lg text-fg">
+                    {post.title}
+                    <span className="absolute bottom-0 left-0 h-px w-0 bg-fg transition-all duration-300 group-hover:w-full" />
+                  </h3>
+                </div>
+                <span className="mt-1 font-mono text-fg-subtle transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
             )
           })}
-        </div>
+        </StaggerList>
 
         {blogPosts.length === 0 && (
           <div className="py-16 text-center font-mono text-sm text-fg-subtle">No writing yet.</div>

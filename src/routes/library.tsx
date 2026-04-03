@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { libraryItems } from '../data/library'
 import { Section } from '../components/section'
 import { LibraryCard } from '../components/library-card'
+import { TextReveal } from '../components/text-reveal'
 import { useSearch, type SearchItem } from '../context/search-context'
 import { SearchTrigger } from '../components/search-trigger'
 
@@ -49,7 +50,7 @@ function LibraryPage() {
       <div className="mx-auto max-w-3xl">
         <Section>
           <div className="mb-2 flex items-center justify-between">
-            <h1 className="font-serif text-4xl text-fg">Library</h1>
+            <TextReveal text="Library" className="font-serif text-4xl text-fg" />
             <SearchTrigger />
           </div>
           <p className="mb-8 font-serif text-base text-fg-muted">

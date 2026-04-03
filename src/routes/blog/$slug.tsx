@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { blogPosts } from '../../data/blog'
 import { MDXProvider } from '@mdx-js/react'
 import { Section } from '../../components/section'
+import { ReadingProgress } from '../../components/reading-progress'
 
 const mdxModules = import.meta.glob('../../content/*.mdx', { eager: true })
 
@@ -58,6 +59,7 @@ function BlogPostPage() {
 
   return (
     <main className="min-h-screen px-6 py-32">
+      <ReadingProgress />
       <div className="mx-auto max-w-[65ch]">
         {post && (
           <Section>
@@ -113,9 +115,12 @@ function BlogPostPage() {
                 },
                 a: (props) => (
                   <a
-                    className="text-accent underline decoration-border underline-offset-4 hover:decoration-accent"
                     {...props}
-                  />
+                    className="group/a relative inline-block text-accent underline-offset-4"
+                  >
+                    {props.children}
+                    <span className="pointer-events-none absolute -bottom-px left-0 h-px w-full origin-left scale-x-0 bg-accent/40 transition-transform duration-200 group-hover/a:scale-x-100" />
+                  </a>
                 ),
                 blockquote: (props) => (
                   <blockquote
