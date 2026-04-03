@@ -1,0 +1,109 @@
+# How I Built This Portfolio (And Why It Took Too Long)
+
+If you are reading this, you are looking at a website I spent way too much time on. Not in a "I built it in a weekend" way. In a "I spent three hours picking the right shade of dark mode" way.
+
+Here is the story of how it happened, what I built, and the questionable decisions I made along the way.
+
+## The Problem
+
+Most student portfolios look the same. A hero section with "Hi, I'm [Name]", a skills section with circular progress bars (why?), a project grid that looks like every other project grid, and a contact form nobody maintains.
+
+I wanted something different. Not different for the sake of being different — different because the default approach is boring and I am stubborn.
+
+## The Aesthetic: Terminal Meets Editorial
+
+The idea was simple: what if a portfolio felt like a beautifully typeset technical journal? Monospace meets serif. Precise grid with intentional breaks. Not a dark hacker terminal cliché — something refined and confident.
+
+Think of it as a senior engineer's notebook that has been obsessively designed.
+
+{/* IMAGE: Show a screenshot of the full dark-mode portfolio homepage */}
+
+## The Tech Stack
+
+I went with **TanStack Router** for file-based routing, **Vite** for the build tool, **Tailwind CSS v4** for styling, and **Motion** for animations. MDX for blog posts. Strict TypeScript because I like my errors at compile time, not runtime.
+
+Why not Next.js? Because this is a static site and I did not want the overhead of a full framework when TanStack Router gives me exactly what I need with less magic.
+
+## The Custom Cursor
+
+Yes, the blinking terminal caret cursor. No, I will not apologize for it.
+
+The idea came from wanting something that felt on-brand — a literal terminal cursor following your mouse. It blinks when you hover over interactive elements, stays solid otherwise. On mobile it disappears entirely because touch devices do not need a cursor.
+
+There is also a toggle button in the top-right corner of the hero section. If you hate it, you can turn it off. I respect that.
+
+{/* IMAGE: Screenshot showing the terminal cursor with the toggle button */}
+
+## The Hardest Part: Dark Mode Only
+
+I started with a light/dark theme toggle with a fancy `clip-path: circle()` expansion animation. It looked great in theory. In practice, the light theme looked like a hospital website and nobody wanted it.
+
+So I deleted it. All of it. The toggle, the state management, the CSS custom properties for light mode. Gone. The site is now dark-only and I have never been happier with a deletion.
+
+The lesson: sometimes the best design decision is removing a feature entirely.
+
+## The Command Palette
+
+Every good portfolio needs a `Cmd+K` search bar. I used **Fuse.js** for fuzzy search with weighted keys — title counts for 50%, tags for 30%, the rest split between subtitle and description.
+
+The search is per-page: on `/projects` it searches projects, on `/library` it searches books and papers, on `/blog` it searches posts. On the home page it searches everything, shuffled so results are not grouped by type.
+
+Selecting a project opens its drawer. Selecting a blog post navigates to it. Selecting a library item scrolls to it. Different behaviors for different content types — because that is what good UX looks like.
+
+{/* IMAGE: Screenshot of the command palette with search results */}
+
+## The Mobile Warning
+
+If you visit this site on a phone, you will see a terminal-style warning screen that says:
+
+```
+⚠  viewport_warning: detected
+
+This portfolio was designed and
+built for a wider screen. Mobile
+works, but you're missing the
+good stuff — custom cursor,
+hover animations, precise layout.
+
+recommended: 1280px+ viewport
+current:      390px viewport
+
+> yes, I accept suboptimal rendering
+```
+
+It is honest. It is a little bit annoying. It is also the kind of thing that makes someone remember your portfolio.
+
+## The Library Page
+
+Instead of a "bookshelf" I called it a **Library** — because it includes books, research papers, and articles. Each item has a personal note, not just a rating. The notes are honest: "Thought ownership was abolished in 1947" for Rust, "More than my entire college networking course" for Beej's Guide.
+
+The search scrolls to the item instead of opening a new page. Small detail, big difference.
+
+{/* IMAGE: Screenshot of the library page with a few books and papers */}
+
+## The "What I Did Not Finish" Section
+
+This is the part I am most proud of. A small subsection on the projects page listing abandoned projects with honest notes about why they failed.
+
+Right now it has Chronos — a self-hostable timetable app that died because the team lost interest and scope creep set in. It is rare to see on portfolios. That is exactly why it is there.
+
+## The Things I Spent Too Much Time On
+
+- **The kinetic text animation** on the hero — random glyphs resolving into correct letters over 600ms. It runs once per session. Nobody will notice it. I noticed it.
+- **The sliding underline** on filter tags and nav items. It uses `layoutId` from Motion so it slides between items instead of disappearing and reappearing.
+- **The ambient grid background** — a faint SVG graph paper pattern with one diagonal accent line. It is so subtle you might not notice it. That is the point.
+- **The scroll-triggered fade-in animations** on every section. 20px slide up, 0.15 threshold, 400ms duration. I tested it 47 times.
+
+## The Things I Should Have Spent More Time On
+
+- Writing blog posts. This is the first one.
+- Testing on actual mobile devices, not just browser dev tools.
+- Accessibility. The custom cursor is cool but I need to make sure screen readers handle everything gracefully.
+
+## The Result
+
+A portfolio that feels like a technical journal, not a template. Dark-only, monospace-heavy, with intentional animations and honest content.
+
+Is it over-engineered? Probably. Do I care? No.
+
+If you made it this far, thank you for reading. The source code is on GitHub — feel free to steal anything except the cursor. That one is mine.

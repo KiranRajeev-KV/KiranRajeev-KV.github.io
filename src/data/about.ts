@@ -20,75 +20,66 @@ interface AboutData {
   currentlyBuilding: string
   currentlyReading: string
   bio: string
-  skills: {
-    languages: Skill[]
-    frameworks: Skill[]
-    tools: Skill[]
-  }
+  skills: Record<string, Skill[]>
   timeline: TimelineItem[]
 }
 
 export const about: AboutData = {
-  name: 'Alex Chen',
+  name: 'Kiran Rajeev',
   pronouns: 'he/him',
-  location: 'Pittsburgh, PA',
-  university: 'Carnegie Mellon University',
-  major: 'B.S. Computer Science',
-  graduation: 'Expected May 2026',
-  currentlyBuilding: 'A distributed KV store with Raft consensus and a better Neovim config than I need',
-  currentlyReading: 'Designing Data-Intensive Applications by Martin Kleppmann (second time, it hits different)',
-  bio: `I am a systems-leaning software engineer who likes building things that work well and look good doing it.
+  location: 'TBA',
+  university: 'Amrita Vishwa Vidyapeetham, Coimbatore',
+  major: 'B.Tech Computer Science and Engineering',
+  graduation: 'Expected August 2027',
+  currentlyBuilding: 'vox — a real-time voice-to-text tool with Whisper transcription and async LLM cleanup',
+  currentlyReading: 'Designing Data-Intensive Applications by Martin Kleppmann (first time)',
+  bio: `I am a B.Tech Computer Science student at Amrita Vishwa Vidyapeetham who likes building things from scratch — not because it is efficient, but because it is the only way to actually understand how they work.
 
-Most of my time goes to distributed systems, low-level tooling, and the occasional web project when I want to make something people can actually see. I care about craft — not in a precious way, but in a "this should work correctly and feel intentional" way.
+I spend most of my time writing Go, reading research papers, and occasionally building full-stack apps when I want to make something people can actually see. I care about craft — not in a precious way, but in a "this should work correctly and feel intentional" way.
 
-I have interned at a couple of places, contributed to some open source projects, and spent an embarrassing amount of time on my terminal setup. I write about what I learn because teaching is the best way to find out what you do not actually understand.
+When I am not at a computer, I am probably reading. My bookshelf ranges from distributed systems algorithms to Adlerian psychology, and I do not see the contradiction.
 
-When I am not at a computer, I am probably running, reading, or explaining to someone why their regex is wrong.`,
+I tried learning Rust once. Thought the borrow checker was a personality disorder.`,
   skills: {
-    languages: [
-      { name: 'TypeScript', weight: 5, note: '3 years — daily driver' },
-      { name: 'Go', weight: 4, note: '2 years — systems work' },
-      { name: 'Python', weight: 4, note: '4 years — ML and scripting' },
-      { name: 'C', weight: 3, note: '2 years — systems classes' },
-      { name: 'Rust', weight: 2, note: '1 year — still learning' },
-      { name: 'Lua', weight: 2, note: 'Neovim config only' },
-      { name: 'SQL', weight: 3, note: 'daily, no ORM' },
+    Languages: [
+      { name: 'Go', weight: 3, note: 'Daily driver' },
+      { name: 'TypeScript', weight: 3, note: 'Prefer over JS' },
+      { name: 'Python', weight: 3, note: 'ML tooling' },
+      { name: 'C++', weight: 3, note: 'DSA' },
+      { name: 'SQL', weight: 3, note: 'Raw queries, no ORM' },
+      { name: 'Rust', weight: 3, note: 'Thought ownership was abolished in 1947' },
     ],
-    frameworks: [
-      { name: 'React', weight: 4, note: '3 years — comfortable' },
-      { name: 'Next.js', weight: 3, note: '2 years — used it for projects' },
-      { name: 'TanStack', weight: 3, note: 'recent convert' },
+    Frontend: [
+      { name: 'React / Next.js', weight: 3, note: 'Production apps' },
+      { name: 'TanStack', weight: 3, note: 'Router, Query, Start' },
+      { name: 'Tailwind CSS', weight: 3, note: 'This portfolio included' },
+      { name: 'Zustand', weight: 3, note: 'State management default' },
     ],
-    tools: [
-      { name: 'PostgreSQL', weight: 3, note: 'daily driver DB' },
-      { name: 'Docker', weight: 3, note: 'containerize everything' },
-      { name: 'Linux', weight: 5, note: 'Arch btw' },
-      { name: 'Git', weight: 5, note: 'muscle memory' },
-      { name: 'Neovim', weight: 4, note: 'no IDE since 2023' },
-      { name: 'eBPF', weight: 2, note: 'used it once, survived' },
-      { name: 'gRPC', weight: 2, note: 'built a couple services' },
+    Backend: [
+      { name: 'Gin', weight: 3, note: 'Go backend default' },
+      { name: 'Express.js', weight: 3, note: 'Node backends' },
+      { name: 'Flask', weight: 3, note: 'Vox web UI' },
+      { name: 'Prisma', weight: 3, note: 'ORM when needed' },
+    ],
+    Data: [
+      { name: 'PostgreSQL', weight: 3, note: 'pgvector, GIN indexes' },
+      { name: 'SQLite', weight: 3, note: 'Lightweight apps' },
+      { name: 'Redis', weight: 3, note: 'Caching, streams' },
+      { name: 'Qdrant', weight: 3, note: 'Vector search' },
+      { name: 'Neon', weight: 3, note: 'Serverless Postgres' },
+      { name: 'Supabase', weight: 3, note: 'Quick backends' },
+    ],
+    Infra: [
+      { name: 'Docker', weight: 3, note: 'Compose for everything' },
+      { name: 'Git', weight: 3, note: 'PR-driven workflow' },
+      { name: 'Linux', weight: 3, note: 'Arch btw' },
+      { name: 'Prometheus + Grafana', weight: 3, note: 'Anokha observability' },
+    ],
+    AI: [
+      { name: 'Gemini API', weight: 3, note: 'LLM pipelines' },
+      { name: 'Ollama', weight: 3, note: 'Local LLM inference' },
+      { name: 'ONNX Runtime', weight: 3, note: 'On-device embeddings' },
     ],
   },
-  timeline: [
-    {
-      year: 'Summer 2025',
-      title: 'SWE Intern — Cloudflare',
-      note: 'Working on the edge runtime team. Building tooling for Workers.',
-    },
-    {
-      year: 'Fall 2024',
-      title: 'Distributed Systems TA — CMU 15-440',
-      note: 'Taught 120 students. Graded Go projects. Learned more from their bugs than my own.',
-    },
-    {
-      year: 'Summer 2024',
-      title: 'SWE Intern — Jane Street',
-      note: 'Built internal tooling in OCaml. First time using a functional language in production.',
-    },
-    {
-      year: 'Spring 2024',
-      title: 'Open Source — Contributed to Neovim LSP',
-      note: 'Fixed a bug in the built-in LSP client. 12-line PR, took 3 weeks to get right.',
-    },
-  ],
+  timeline: [],
 }
