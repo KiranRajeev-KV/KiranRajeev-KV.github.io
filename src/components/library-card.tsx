@@ -40,15 +40,20 @@ interface LibraryCardProps {
 
 export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
   const contentRef = useRef<HTMLDivElement>(null)
+  const isExpandable = !!(item.fullNote || item.link)
 
   return (
     <motion.div
       layout
-      onClick={onToggle}
-      className={`group relative cursor-pointer rounded-lg border border-border transition-colors ${
+      onClick={isExpandable ? onToggle : undefined}
+      className={`group relative rounded-lg border border-border transition-colors ${
+        isExpandable ? 'cursor-pointer' : ''
+      } ${
         expanded
           ? 'bg-bg-subtle'
-          : 'bg-bg-elevated hover:bg-bg-subtle'
+          : isExpandable
+            ? 'bg-bg-elevated hover:bg-bg-subtle'
+            : 'bg-bg-elevated'
       }`}
       style={{ borderLeftWidth: '3px', borderLeftColor: item.accent }}
       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -73,15 +78,17 @@ export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
               {item.author} · {item.year}
             </p>
           </div>
-          <motion.span
-            className="mt-1 shrink-0 font-mono text-fg-subtle"
-            animate={{ rotate: expanded ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </motion.span>
+          {isExpandable && (
+            <motion.span
+              className="mt-1 shrink-0 font-mono text-fg-subtle"
+              animate={{ rotate: expanded ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </motion.span>
+          )}
         </div>
 
         <p className="mt-3 font-serif text-sm leading-relaxed text-fg-muted">
@@ -100,40 +107,42 @@ export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
         </div>
       </div>
 
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            ref={contentRef}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="border-t border-border px-5 pb-5 pt-4">
-              {item.fullNote && (
-                <p className="font-serif text-sm leading-relaxed text-fg">
-                  {item.fullNote}
-                </p>
-              )}
-              {item.link && (
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="mt-4 inline-flex items-center gap-1 font-mono text-xs text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover"
-                >
-                  View source
-                  <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                  </svg>
-                </a>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isExpandable && (
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              ref={contentRef}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="border-t border-border px-5 pb-5 pt-4">
+                {item.fullNote && (
+                  <p className="font-serif text-sm leading-relaxed text-fg">
+                    {item.fullNote}
+                  </p>
+                )}
+                {item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-4 inline-flex items-center gap-1 font-mono text-xs text-accent underline decoration-border underline-offset-4 transition-colors hover:text-accent-hover"
+                  >
+                    View source
+                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </motion.div>
   )
 }

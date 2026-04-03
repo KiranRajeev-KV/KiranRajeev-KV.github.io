@@ -16,19 +16,11 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       className={`group relative w-full rounded-lg border border-border p-6 text-left transition-shadow hover:shadow-lg`}
       style={{ '--accent': project.accent } as React.CSSProperties}
     >
-      <div className="absolute inset-0 rounded-lg bg-[var(--accent)] opacity-0 transition-opacity group-hover:opacity-[0.03]:opacity-[0.06]" />
+      <div className="absolute inset-0 rounded-lg bg-[var(--accent)] opacity-0 transition-opacity group-hover:opacity-[0.03]" />
       <div className="relative">
         <div className="mb-3 h-0.5 w-8 bg-[var(--accent)] transition-all group-hover:w-12" />
         <h3 className="font-serif text-xl text-fg">{project.title}</h3>
         <p className="mt-1 text-sm text-fg-muted">{project.description}</p>
-        <div className="mt-4 flex items-center gap-1 font-mono text-xs text-fg-subtle">
-          {project.stack.map((tech, i) => (
-            <span key={tech}>
-              {tech}
-              {i < project.stack.length - 1 && <span className="mx-1">·</span>}
-            </span>
-          ))}
-        </div>
       </div>
     </motion.button>
   )

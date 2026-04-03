@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute, ScrollRestoration } from '@tanstack/react-router'
+import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { AnimatePresence } from 'motion/react'
 import { CustomCursor } from '../components/custom-cursor'
 import { FloatingNav } from '../components/floating-nav'
@@ -24,7 +24,6 @@ function CommandPaletteWrapper() {
 function RootComponent() {
   return (
     <>
-      <ScrollRestoration />
       <ProgressBar />
       <SearchProvider>
         <CommandPaletteWrapper />

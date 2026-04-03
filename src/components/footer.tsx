@@ -12,7 +12,7 @@ export function Footer() {
       <div className="mx-auto max-w-5xl">
         <div className="flex items-center justify-between">
           <div className="font-mono text-xs text-fg-subtle">
-            <span>Alex Chen</span>
+            <span>Kiran Rajeev</span>
             <span className="mx-2">·</span>
             <span>{year}</span>
             <span className="mx-2">·</span>
