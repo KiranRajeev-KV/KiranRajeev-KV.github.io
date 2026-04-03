@@ -31,7 +31,8 @@ export const about: AboutData = {
   university: 'Amrita Vishwa Vidyapeetham, Coimbatore',
   major: 'B.Tech Computer Science and Engineering',
   graduation: 'Expected August 2027',
-  currentlyBuilding: 'vox — a real-time voice-to-text tool with Whisper transcription and async LLM cleanup',
+  currentlyBuilding:
+    'vox — a real-time voice-to-text tool with Whisper transcription and async LLM cleanup',
   currentlyReading: 'Designing Data-Intensive Applications by Martin Kleppmann (first time)',
   bio: `I am a final-year B.Tech Computer Science student at Amrita Vishwa Vidyapeetham who likes building things from scratch — not because it is efficient, but because it is the only way to actually understand how they work.
 
@@ -49,7 +50,8 @@ When I am not at a computer, I am probably reading or yapping to friends about s
       { name: 'Bash', weight: 3, note: 'Scripting and dotfiles' },
     ],
     Frontend: [
-      { name: 'React / Next.js', weight: 3, note: 'Production apps' },
+      { name: 'React', weight: 3, note: 'Production apps' },
+      { name: 'Next.js', weight: 3, note: 'SSR, App Router' },
       { name: 'TanStack', weight: 3, note: 'Router, Query, Start' },
       { name: 'Tailwind CSS', weight: 3, note: 'This portfolio included' },
       { name: 'Zustand', weight: 3, note: 'State management default' },

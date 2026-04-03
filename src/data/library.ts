@@ -78,7 +78,7 @@ export const libraryItems: LibraryItem[] = [
   {
     id: 'dynamo',
     type: 'paper',
-    title: 'Dynamo: Amazon\'s Highly Available Key-value Store',
+    title: "Dynamo: Amazon's Highly Available Key-value Store",
     author: 'DeCandia et al.',
     year: 2007,
     status: 'queued',
@@ -106,7 +106,8 @@ export const libraryItems: LibraryItem[] = [
     year: 2021,
     status: 'queued',
     note: 'Want to build an interpreter and bytecode VM following this. The gap between understanding parsing and actually writing one is exactly what I need.',
-    fullNote: 'The Java implementation is cleaner than most production code I have seen. The chapter on garbage collection alone is worth reading.',
+    fullNote:
+      'The Java implementation is cleaner than most production code I have seen. The chapter on garbage collection alone is worth reading.',
     link: 'https://craftinginterpreters.com/',
     tags: ['languages', 'compilers'],
     accent: '#06b6d4',
@@ -130,7 +131,7 @@ export const libraryItems: LibraryItem[] = [
     author: 'Diego Ongaro, John Ousterhout',
     year: 2014,
     status: 'queued',
-    note: 'Want to read this before implementing Raft from scratch. Supposed to be more approachable than Paxos — we\'ll see.',
+    note: "Want to read this before implementing Raft from scratch. Supposed to be more approachable than Paxos — we'll see.",
     link: 'https://raft.github.io/raft.pdf',
     tags: ['distributed-systems', 'consensus'],
     accent: '#84cc16',
@@ -150,12 +151,13 @@ export const libraryItems: LibraryItem[] = [
   {
     id: 'beejs-guide',
     type: 'book',
-    title: 'Beej\'s Guide to Network Programming',
+    title: "Beej's Guide to Network Programming",
     author: 'Brian "Beej" Jorgensen Hall',
     year: 1994,
     status: 'read',
     note: 'The best introduction to sockets and network programming I have found. Free, practical, and still relevant after 30 years.',
-    fullNote: 'I keep coming back to this when debugging network issues. This book taught me the practical side of networking — more than my entire college networking course.',
+    fullNote:
+      'I keep coming back to this when debugging network issues. This book taught me the practical side of networking — more than my entire college networking course.',
     link: 'https://beej.us/guide/bgnet/',
     tags: ['networking', 'systems', 'C'],
     accent: '#64748b',
@@ -168,7 +170,8 @@ export const libraryItems: LibraryItem[] = [
     year: 2025,
     status: 'read',
     note: 'A first-hand account of scaling Dukaan from 0 to 1 million stores. Practical system design lessons from someone who actually shipped it.',
-    fullNote: 'A first-hand account of how scaling actually works in practice. Written by a CTO without a CS degree — which is both inspiring and jaw-dropping.',
+    fullNote:
+      'A first-hand account of how scaling actually works in practice. Written by a CTO without a CS degree — which is both inspiring and jaw-dropping.',
     tags: ['system-design', 'scaling', 'engineering'],
     accent: '#f97316',
   },
@@ -180,7 +183,8 @@ export const libraryItems: LibraryItem[] = [
     year: 2018,
     status: 'read',
     note: 'The compounding effect of small improvements applies directly to engineering — one extra test, one extra commit, one extra review per day adds up.',
-    fullNote: 'The 2-minute rule is the most actionable advice I have taken from any book. If a task takes less than 2 minutes, do it now. It changed how I approach daily life, not just code.',
+    fullNote:
+      'The 2-minute rule is the most actionable advice I have taken from any book. If a task takes less than 2 minutes, do it now. It changed how I approach daily life, not just code.',
     tags: ['habits', 'personal-growth'],
     accent: '#84cc16',
   },
@@ -192,7 +196,8 @@ export const libraryItems: LibraryItem[] = [
     year: 2016,
     status: 'read',
     note: 'Not about apathy — about choosing what to care about. Applied to engineering: care about correctness, not perfection.',
-    fullNote: 'The feedback loop concept is the most useful framework from this book. Most arguments in life are about things that do not actually matter.',
+    fullNote:
+      'The feedback loop concept is the most useful framework from this book. Most arguments in life are about things that do not actually matter.',
     tags: ['philosophy', 'personal-growth'],
     accent: '#f59e0b',
   },
@@ -204,7 +209,8 @@ export const libraryItems: LibraryItem[] = [
     year: 2017,
     status: 'read',
     note: 'Adlerian psychology in dialogue format. The idea that all problems are interpersonal relationships changed how I think about team dynamics.',
-    fullNote: 'The concept of "separation of tasks" is the most useful takeaway. You are responsible for your actions, not for how others perceive them. That alone is freeing.',
+    fullNote:
+      'The concept of "separation of tasks" is the most useful takeaway. You are responsible for your actions, not for how others perceive them. That alone is freeing.',
     tags: ['psychology', 'philosophy'],
     accent: '#a78bfa',
   },
@@ -216,7 +222,8 @@ export const libraryItems: LibraryItem[] = [
     year: 2003,
     status: 'read',
     note: 'The Shazam paper. Read it before building Hibiki — the spectral peak hashing approach is elegant and surprisingly practical.',
-    fullNote: 'The idea of packing anchor frequency, target frequency, and time delta into a single 32-bit hash is one of those "why didn\'t I think of that" moments. Built my own implementation in Go after reading this.',
+    fullNote:
+      'The idea of packing anchor frequency, target frequency, and time delta into a single 32-bit hash is one of those "why didn\'t I think of that" moments. Built my own implementation in Go after reading this.',
     link: 'https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf',
     tags: ['signal-processing', 'algorithms', 'audio'],
     accent: '#ec4899',

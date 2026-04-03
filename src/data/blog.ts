@@ -12,12 +12,13 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'building-this-portfolio',
-    title: 'How I Built This Portfolio (And Why It Took Too Long)',
+    title: 'How I Built This Portfolio (And Why It Took a Week)',
     date: '2026-04-02',
     category: 'Web',
     categoryColor: '#3b82f6',
-    teaser: 'A terminal-inspired portfolio with fuzzy search, a custom cursor, and more time spent on animations than I care to admit.',
+    teaser:
+      'My first portfolio site, built from scratch in a week. Here is what I built, what I learned, and why I am not sorry about the custom cursor.',
     featured: true,
-    wordCount: 1036,
+    wordCount: 1474,
   },
 ]
