@@ -1,24 +1,12 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-
-const lines = [
-  { text: '⚠  viewport_warning: detected', delay: 0 },
-  { text: '', delay: 200 },
-  { text: 'This portfolio was designed and', delay: 400 },
-  { text: 'built for a wider screen. Mobile', delay: 550 },
-  { text: "works, but you're missing the", delay: 700 },
-  { text: 'good stuff — custom cursor,', delay: 850 },
-  { text: 'hover animations, precise layout.', delay: 1000 },
-  { text: '', delay: 1150 },
-  { text: 'best viewed on: desktop or laptop', delay: 1300 },
-  { text: 'your screen:      phone ({width}px)', delay: 1450 },
-]
+import { TerminalPrompt } from './terminal-prompt'
 
 export function MobileWarning() {
   const [show, setShow] = useState(false)
   const [dismissed, setDismissed] = useState(false)
-  const [visibleLines, setVisibleLines] = useState(0)
   const [width, setWidth] = useState(0)
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -27,10 +15,6 @@ export function MobileWarning() {
 
     setShow(true)
     setWidth(window.innerWidth)
-
-    lines.forEach((line, i) => {
-      setTimeout(() => setVisibleLines(i + 1), line.delay)
-    })
   }, [])
 
   if (!show || dismissed) return null
@@ -39,6 +23,20 @@ export function MobileWarning() {
     setDismissed(true)
     sessionStorage.setItem('mobile-warning-dismissed', 'true')
   }
+
+  const terminalLines = [
+    { text: 'viewport_warning: detected', prompt: false, delay: 0 },
+    { text: '', prompt: false, delay: 400 },
+    {
+      text: 'This portfolio was designed and built for a wider screen.',
+      prompt: false,
+      delay: 600,
+    },
+    { text: 'Mobile works, but you are missing the good stuff.', prompt: false, delay: 800 },
+    { text: '', prompt: false, delay: 1000 },
+    { text: `best viewed on: desktop or laptop`, prompt: false, delay: 1200 },
+    { text: `your screen:      phone (${width}px)`, prompt: false, delay: 1400 },
+  ]
 
   return (
     <AnimatePresence>
@@ -50,7 +48,6 @@ export function MobileWarning() {
         className="fixed inset-0 z-[100] flex items-center justify-center bg-bg px-4"
       >
         <div className="relative w-full max-w-md">
-          {/* Ambient grid background */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.03]">
             <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -62,58 +59,27 @@ export function MobileWarning() {
             </svg>
           </div>
 
-          {/* Terminal box */}
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
             className="relative rounded-lg border border-border p-6"
           >
-            <div className="font-mono text-sm leading-relaxed">
-              {lines.slice(0, visibleLines).map((line, i) => {
-                const isWidthLine = line.text.includes('{width}')
-                const displayText = isWidthLine
-                  ? line.text.replace('{width}', String(width))
-                  : line.text
+            <div className="mb-2 font-mono text-xs text-accent">⚠</div>
+            <TerminalPrompt
+              lines={terminalLines}
+              typingSpeed={25}
+              lineDelay={100}
+              onComplete={() => setDone(true)}
+            />
 
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className={`min-h-[1.25rem] ${
-                      i === 0
-                        ? 'text-accent'
-                        : displayText === ''
-                          ? 'h-3'
-                          : i >= 8
-                            ? 'text-fg-subtle'
-                            : 'text-fg-muted'
-                    }`}
-                  >
-                    {displayText}
-                  </motion.div>
-                )
-              })}
-
-              {/* Blinking cursor on last line */}
-              {visibleLines >= lines.length && (
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-                  className="inline-block h-4 w-2 bg-fg"
-                />
-              )}
-            </div>
-
-            {/* Dismiss button */}
             <AnimatePresence>
-              {visibleLines >= lines.length && (
+              {done && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-8"
+                  transition={{ delay: 0.2 }}
+                  className="mt-6"
                 >
                   <button
                     onClick={handleDismiss}
