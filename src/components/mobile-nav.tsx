@@ -26,11 +26,11 @@ export function MobileNav() {
             <Link
               key={item.path}
               to={item.path}
-              className="relative flex flex-1 flex-col items-center justify-center py-4 transition-all duration-200 active:scale-[1.05]"
+              className="relative flex flex-1 flex-col items-center justify-center py-3 transition-all duration-200 active:scale-[1.05]"
             >
               <span
-                className={`font-mono text-sm rounded-md px-3 py-1.5 transition-colors duration-200 ${
-                  isActive ? 'bg-bg-subtle text-fg' : 'bg-transparent text-fg-subtle hover:text-fg'
+                className={`font-mono text-xs rounded-md px-3 py-1.5 transition-colors duration-200 ${
+                  isActive ? 'bg-bg-subtle text-fg' : 'bg-transparent text-fg-muted hover:text-fg'
                 }`}
               >
                 {item.label}
