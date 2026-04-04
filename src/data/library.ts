@@ -106,8 +106,6 @@ export const libraryItems: LibraryItem[] = [
     year: 2021,
     status: 'queued',
     note: 'Want to build an interpreter and bytecode VM following this. The gap between understanding parsing and actually writing one is exactly what I need.',
-    fullNote:
-      'The Java implementation is cleaner than most production code I have seen. The chapter on garbage collection alone is worth reading.',
     link: 'https://craftinginterpreters.com/',
     tags: ['languages', 'compilers'],
     accent: 'oklch(0.72 0.14 200)',
