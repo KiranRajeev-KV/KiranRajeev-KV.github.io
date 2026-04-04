@@ -94,19 +94,18 @@ export const projects: Project[] = [
   {
     id: 'vox',
     title: 'Vox',
-    description:
-      'Real-time voice-to-text pipeline with Whisper transcription and async LLM cleanup',
+    description: 'Real-time voice-to-text with Whisper transcription and async LLM cleanup',
     longDescription:
-      'A real-time voice-to-text tool that transcribes speech using Whisper large-v3 and asynchronously cleans up grammar with any OpenAI-compatible LLM. Features an optimistic paste pattern where raw text appears instantly while LLM cleanup runs in the background. Includes a Flask web UI with search, a test suite with WER regression benchmarks, and GPU-optimized VRAM management.',
+      'A real-time voice-to-text tool that transcribes speech using Whisper and asynchronously cleans up grammar with any OpenAI-compatible LLM. Features an optimistic paste pattern where raw text appears instantly while LLM cleanup runs in the background. Includes a Flask web UI with search, a test suite with accuracy benchmarks, and GPU-optimized memory management.',
     problem:
       'Existing voice typing tools either have high latency (waiting for LLM cleanup) or produce raw, unpolished text. There is no tool that gives you instant feedback while still delivering cleaned-up output.',
     solution:
-      'Built a multi-threaded pipeline with bounded-queue architecture. The key insight: paste raw text instantly, then run LLM cleanup asynchronously in the background. Added Silero VAD for silence trimming, int8 quantization for GPU compatibility, and an output abstraction supporting multiple paste strategies. The result is sub-second transcription with polished output that arrives a moment later.',
+      'Built a multi-threaded pipeline. The key insight: paste raw text instantly, then run LLM cleanup asynchronously in the background. Added silence detection for automatic trimming, model quantization for consumer GPU compatibility, and multiple output strategies. The result is sub-second transcription with polished output that arrives a moment later.',
     lessons: [
       'Optimistic UI patterns work for voice too — show raw output immediately, clean up in the background',
-      'VRAM management on consumer GPUs requires careful model quantization',
-      'WER regression benchmarks catch transcription quality degradation before it reaches users',
-      'xdotool paste is faster than clipboard but requires careful window filtering',
+      'Model quantization on consumer GPUs is a trade-off between speed and accuracy',
+      'Accuracy benchmarks catch quality degradation before it reaches users',
+      'Direct keyboard paste is faster than clipboard but requires careful window filtering',
     ],
     stack: ['Python', 'faster-whisper', 'Flask', 'SQLite', 'OpenAI', 'FFmpeg', 'numpy', 'pytest'],
     accent: 'oklch(0.60 0.22 293)',
@@ -118,17 +117,17 @@ export const projects: Project[] = [
   {
     id: 'nyx',
     title: 'Nyx',
-    description: 'Lost-and-found platform with on-device CLIP image similarity search',
+    description: 'Lost-and-found platform with on-device image similarity search',
     longDescription:
-      'A lost-and-found platform with PASETO v4 asymmetric token auth and on-device CLIP vision embeddings for image similarity search. Generates 512-dimensional vectors using ONNX Runtime entirely in Go — no external ML services. Combines PostgreSQL full-text search with vector similarity for multimodal item matching.',
+      'A lost-and-found platform with token-based auth and on-device image embeddings for similarity search. Generates image vectors using ONNX Runtime entirely in Go — no external ML services. Combines PostgreSQL full-text search with vector similarity for matching items by both text and image.',
     problem:
       'Lost-and-found systems rely on text descriptions, which are unreliable for visual items. A lost blue backpack described differently by two people will never match in a text-only search.',
     solution:
-      'Built an on-device CLIP embedding pipeline that generates vectors for every uploaded image, enabling similarity search directly in PostgreSQL. Combined with full-text search for hybrid matching. Implemented asymmetric auth, S3-compatible image storage with presigned URLs, and a comprehensive test suite.',
+      'Built an on-device image embedding pipeline that generates vectors for every uploaded image, enabling similarity search directly in PostgreSQL. Combined with full-text search for hybrid matching. Implemented token-based auth, S3-compatible image storage with presigned URLs, and a comprehensive test suite.',
     lessons: [
-      'Running CLIP embeddings on-device eliminates ML service dependencies and latency',
+      'Running image embeddings on-device eliminates external ML service dependencies and latency',
       'Hybrid search (full-text + vector) outperforms either approach alone for real-world queries',
-      'PASETO v4 asymmetric tokens are simpler and safer than JWT for cookie-based auth',
+      'Modern token-based auth is simpler and safer than JWT for cookie-based sessions',
       'A large test suite is not overkill — it is the minimum for a production API',
     ],
     stack: ['Go', 'Gin', 'PostgreSQL', 'pgvector', 'ONNX Runtime', 'CLIP', 'SQLC', 'PASETO', 'S3'],
@@ -143,15 +142,15 @@ export const projects: Project[] = [
     title: 'Hibiki',
     description: 'Shazam-style audio fingerprinting engine built from scratch in Go',
     longDescription:
-      'A Shazam-style audio fingerprinting pipeline implementing Wang (2003) in Go. Features a combinatorial hash encoding scheme packing anchor frequency, target frequency, and time delta into a single integer. Includes a complete DSP chain: MP3/WAV decoding, anti-aliasing filter, downsampling, FFT spectrogram generation, spectral peak detection, and diagonal alignment matching.',
+      'A Shazam-style audio fingerprinting pipeline implementing the Wang (2003) algorithm in Go. Features a hash encoding scheme that packs spectral peaks and time deltas into a single integer. Includes a complete audio processing chain: MP3/WAV decoding, downsampling, spectrogram generation, peak detection, and alignment matching.',
     problem:
-      'Understanding how Shazam works from the paper is one thing. Implementing the fingerprinting algorithm, hash encoding, and diagonal alignment matching from scratch is an entirely different challenge.',
+      'Understanding how Shazam works from the paper is one thing. Implementing the fingerprinting algorithm, hash encoding, and alignment matching from scratch is an entirely different challenge.',
     solution:
-      'Built a 5-layer pipeline (audio → DSP → fingerprint → DB → match) with clean separation of concerns. Reduced computational load by downsampling to 8kHz with an anti-aliasing filter. Implemented hash encoding enabling fast database lookups, and diagonal alignment matching to filter random collisions.',
+      'Built a 5-layer pipeline (audio → processing → fingerprint → DB → match) with clean separation of concerns. Reduced computational load by downsampling to 8kHz. Implemented hash encoding enabling fast database lookups, and alignment matching to filter random collisions.',
     lessons: [
-      'Anti-aliasing filters are not optional — downsampling without them produces garbage spectrograms',
+      'Anti-aliasing filters are not optional — downsampling without them produces garbage',
       'A hash packing frequency pairs and time deltas is elegant but requires careful bit allocation',
-      'Diagonal alignment matching is the key differentiator between real fingerprinting and naive hash matching',
+      'Alignment matching is the key differentiator between real fingerprinting and naive hash matching',
       'Testing with hundreds of thousands of combinations does not guarantee zero collisions in production',
     ],
     stack: ['Go', 'gonum', 'SQLite', 'FFmpeg', 'FFT', 'DSP'],
@@ -164,13 +163,13 @@ export const projects: Project[] = [
   {
     id: 'memoria',
     title: 'Memoria',
-    description: 'Bitcask-style key-value storage engine with O(1) lookups, built in pure Go',
+    description: 'Bitcask-style key-value storage engine built in pure Go',
     longDescription:
-      'A Bitcask-style key-value storage engine built from scratch in pure Go with zero external dependencies. Features an in-memory index for fast point lookups, sequential append-only writes with CRC32 integrity checks, and a segment rotation system with auto-compaction. Handles 200+ concurrent goroutines safely with a multi-tier locking model.',
+      'A Bitcask-style key-value storage engine built from scratch in pure Go with zero external dependencies. Features an in-memory index for fast point lookups, sequential append-only writes with integrity checks, and a segment rotation system with auto-compaction. Handles 200+ concurrent goroutines safely with a multi-tier locking model.',
     problem:
       'Most KV stores are either too complex (RocksDB) or too simple (a map). Building a production-grade storage engine teaches you about disk I/O, concurrency, compaction, and crash recovery — things no framework abstracts away.',
     solution:
-      'Implemented a Bitcask design with in-memory index, append-only log segments, auto-rotation at 16MB, and background merge compaction. Added hint files for fast recovery, an LRU file cache to prevent file descriptor exhaustion, and CRC32 integrity checks on every entry. Tested with 200-goroutine stress tests.',
+      'Implemented a Bitcask design with in-memory index, append-only log segments, auto-rotation at 16MB, and background merge compaction. Added hint files for fast recovery, an LRU file cache to prevent file descriptor exhaustion, and integrity checks on every entry. Tested with 200-goroutine stress tests.',
     lessons: [
       'Sequential writes are 100x faster than random writes — append-only logs exploit this',
       'Hint files are a clever optimization: replay metadata instead of scanning full segment logs',
@@ -187,9 +186,9 @@ export const projects: Project[] = [
   {
     id: 'catalogus',
     title: 'Catalogus',
-    description: 'Full-stack media tracking app with two-level caching and type-safe API layer',
+    description: 'Full-stack media tracking app with two-level caching',
     longDescription:
-      'A full-stack media tracking application with an MVC backend, SSR frontend, and a relational schema with composite unique constraints. Built a two-level caching strategy (Redis TTL + database staleness detection) reducing external API calls significantly. Includes type-safe API validation and cookie-based auth.',
+      'A full-stack media tracking application with an Express backend, SSR frontend, and a relational schema. Built a two-level caching strategy (Redis TTL + database staleness detection) reducing external API calls significantly. Includes type-safe API validation and cookie-based auth.',
     problem:
       'Tracking watched movies and TV shows across platforms is fragmented. Existing apps either lack customization or require manual entry. Wanted a self-hosted solution with fast search and reliable external API integration.',
     solution:
@@ -221,16 +220,16 @@ export const projects: Project[] = [
     id: 'season-of-code',
     title: 'Season of Code',
     description:
-      'Open-source competition platform with real-time leaderboards and SSE live activity feeds',
+      'Open-source competition platform with real-time leaderboards and live activity feeds',
     longDescription:
-      'A full-stack open-source competition platform serving 250+ participants with real-time leaderboards, issue tracking, and GitHub OAuth. Built with a Next.js frontend and Go backend featuring a goroutine supervisor pattern with panic recovery, SSE-based real-time updates, and sorted-set leaderboards across multiple categories.',
+      'A full-stack open-source competition platform serving 250+ participants with real-time leaderboards, issue tracking, and GitHub OAuth. Built with a Next.js frontend and Go backend featuring a supervisor pattern for managing live feeds, SSE-based real-time updates, and sorted-set leaderboards across multiple categories.',
     problem:
       'Open-source competition platforms need real-time leaderboards, issue tracking, and live activity feeds. Building this with polling is wasteful — SSE is the right tool but requires careful client management.',
     solution:
-      'Built a Next.js + Go platform with SSE real-time updates using a protected client registry and buffered channels with backpressure. Implemented a goroutine supervisor with panic recovery for zero-downtime live feeds. Added sorted-set leaderboards with compact score encoding across multiple categories.',
+      'Built a Next.js + Go platform with SSE real-time updates using a protected client registry and buffered channels with backpressure. Implemented a supervisor pattern with crash recovery for zero-downtime live feeds. Added sorted-set leaderboards with compact score encoding across multiple categories.',
     lessons: [
       'SSE with buffered channels and backpressure is more reliable than WebSockets for one-way broadcasts',
-      'A goroutine supervisor with panic recovery prevents a single crash from taking down the entire feed',
+      'A supervisor pattern with crash recovery prevents a single failure from taking down the entire feed',
       'Sorted sets with float-score encoding is an elegant way to handle leaderboard ranking',
       'Client-side token refresh with retry prevention avoids thundering herd on 401 responses',
     ],
@@ -255,10 +254,9 @@ export const projects: Project[] = [
   {
     id: 'devstats-pipeline',
     title: 'DevStats Pipeline',
-    description:
-      'Zero-dependency Go CLI for concurrent CSV data processing with producer-worker-consumer pattern',
+    description: 'Zero-dependency Go CLI for concurrent CSV data processing',
     longDescription:
-      'A zero-dependency Go CLI application using only the standard library to parse, transform, and aggregate Stack Overflow developer survey data. Implements a producer-worker-consumer pattern with broadcast distribution, orchestrating multiple goroutine types connected via buffered channels. Features an extensible metric architecture where new metrics require just 2 functions.',
+      'A Go CLI application using only the standard library to parse, transform, and aggregate Stack Overflow developer survey data. Implements a producer-worker-consumer pattern with broadcast distribution, orchestrating multiple goroutine types connected via buffered channels. Features an extensible metric architecture where new metrics require just 2 functions.',
     problem:
       'Processing large CSV survey datasets sequentially is slow. The standard library has all the tools for concurrent processing, but most developers reach for external libraries instead.',
     solution:
