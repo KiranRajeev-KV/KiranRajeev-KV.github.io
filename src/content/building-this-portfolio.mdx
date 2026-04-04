@@ -1,81 +1,45 @@
-**TL;DR:** Built in a week with TanStack Router, Vite, Tailwind CSS v4, and Motion. Dark-only, terminal-meets-editorial, and unapologetically a V1. The source is [on GitHub](https://github.com/KiranRajeev-KV/KiranRajeev-KV.github.io) if you want to poke around.
+**TL;DR:** Built with TanStack Router, Vite, Tailwind CSS v4, and Motion. Dark-only, terminal-meets-editorial. The source is [on GitHub](https://github.com/KiranRajeev-KV/KiranRajeev-KV.github.io) if you want to poke around.
 
 ## Building This Portfolio
 
-If you are reading this, you are looking at a website I built in about a week. Not a weekend hack. Not a template I customized. I sat down, planned it out, and built it from scratch over five to seven days.
+Or: what happens when you finally run out of excuses.
 
-This is my first portfolio site. For a long time, I did not have one. Most of my friends did, but I never felt like I had enough content to justify it. I had a few projects, nothing I felt was portfolio-worthy. But now I have two months of vacation, I need an internship, and I need to start marketing myself. So here we are.
+I did not have a portfolio for a long time. Most of my friends did. I kept telling myself I did not have enough to show — not enough projects, nothing polished enough, nothing worth putting out there. That was partly true and mostly just avoidance.
 
-## The Vibe: Terminal Meets Editorial
+Then I had two months of vacation, needed an internship, and the excuse stopped working. So I built one.
 
-I originally wanted my portfolio to feel like running `ssh kiran@portfolio` and getting a terminal interface. That is not really practical on the web, so I went with a terminal aesthetic instead — monospace fonts, dark background, precise layout.
+## Why from scratch
 
-But a plain black terminal does not really work as a website. It feels like a hacker cliché. So I added an editorial layer — serif fonts for headings, generous whitespace, intentional negative space. Think of it as a technical journal that someone designed obsessively.
+I could have used a template. I chose not to — not because I think it makes me a better developer, but because I knew I would learn more by making the decisions myself. What goes on the hero section. How to handle routing. Whether to have a blog at all. Templates answer those questions for you, which is convenient and also the entire problem.
 
-Minimalism is the theme, but not at the cost of personality.
+The stack ended up being TanStack Router, Vite, Tailwind v4, and Motion for animations. Blog posts are MDX. Everything runs on Bun. None of this was particularly novel for me — I had used most of it before. The two things I actually had not touched were MDX and building a `Cmd+K` command palette. Both are now things I understand, which is the point.
 
-{/* IMAGE: Show a screenshot of the full dark-mode portfolio homepage */}
+I chose TanStack Router over Next.js because Next.js is more than I needed. I wanted a static site with type-safe routing. TanStack gives me that without the overhead. Tailwind v4 is cleaner to set up than v3. Motion let me think about what to animate instead of how to write the CSS for it. These were not hard choices — they were just honest ones.
 
-## The Tech Stack
+## What I got wrong
 
-I went with **TanStack Router** for file-based routing, **Vite** for the build tool, **Tailwind CSS v4** for styling, and **Motion** for animations. Blog posts are in **MDX**. Everything runs on **Bun**.
+The hero section is too bare. I know that. Minimalism was the theme, but there is a version of minimalism that is intentional and a version that is just… not finishing the thing. Mine might be the second one.
 
-Why TanStack Router over Next.js? Next.js has become bloated for what I needed. I wanted a static site, and TanStack Router gives me file-based routing with type safety without the overhead. After building Anokha and a few other projects with it, TanStack + Vite just became my default frontend stack. It works well with Bun, the error messages are actually helpful, and prototyping feels like a breeze.
+Setting up MDX took longer than I expected — not because it is complex, but because I had never done it. Getting the rendering pipeline right, overriding components for code blocks and blockquotes, figuring out how file globbing worked in this context — it was unfamiliar territory. That kind of friction is annoying in the moment and useful in hindsight.
 
-Tailwind v4 is simpler to set up than v3 and has everything I need. I genuinely think Tailwind is one of the best things to happen to frontend development.
+The library page took the most thinking. I read a decent amount — CS, psychology, fiction — and I was not sure what shape it should take. Bookshelf? Just books? Papers too? I landed on "library" because it can hold anything. It is still sparse. I have bigger ideas for it. They did not make it into V1.
 
-For animations, I used **Motion** instead of CSS or GSAP. I tried GSAP on my Anokha project and found it too verbose. CSS animations are fine, but I am not good enough to make spring-physics-level animations with pure CSS. Motion simplifies the interface — I think about _what_ I want to animate, not _how_ the CSS works.
+## The things I actually care about
 
-I chose **MDX** for blog posts because building a CMS for a section I am just starting to write is overkill. Plain markdown is a pain to render. MDX lets me write in markdown with the option to drop in React components when I need them. Plus, I had never used it before and wanted to try it out.
+The Today I Learned section is the one I am most attached to. The idea is simple: when I learn something or figure out a tricky problem, I write it down. Not for anyone else. For the version of me who needs to think more carefully before moving on. It is easy to solve something and immediately forget you solved it. This is a forcing function against that.
 
-## The Build
+The "What I Did Not Finish" section I borrowed from someone else's portfolio. I liked the honesty of it. Most side projects do not get completed. That is just how it goes. But unfinished things still taught you something, and pretending they do not exist felt like the wrong move.
 
-It took about a week, spread across multiple sessions. Planning, designing, coding, adding CI, and deploying.
+## Did I use AI?
 
-The hardest part was setting up MDX rendering for the blog. I had never worked with it before, and getting the pipeline right — from file globbing to component overrides for code blocks and blockquotes — took some figuring out. It was not _hard_, but it was the most unfamiliar piece. When I finally saw my first blog post rendering properly, it was pretty satisfying.
+Yes. Boilerplate, the simple parts, moving faster on things that did not require my judgment. I finished this in a week partly because of that. I do not think that is something to apologize for.
 
-The thing that took longer than expected was the library page. I read a decent amount of books — CS books, psychology, fiction — and I was not sure how to frame it. Should it be a bookshelf? Should it include research papers? Articles I have read? I landed on "library" because it can hold anything I have read, not just books. I have bigger plans for it — maybe an interactive bookshelf with clickable spines — but for now, it is a clean catalog with personal notes.
+## What this is
 
-I am not really a frontend person. I can do frontend, but I would not call myself good at it. When I got stuck, I searched for inspiration on sites like Mobbin and looked at how other developer portfolios handled similar problems.
+A V1. A starting point. A snapshot of where I am right now — final year, two months of free time, a growing list of things I want to build, and a lot I still do not know.
 
-## Design Decisions
+If you are a recruiter: I am looking for an internship.
 
-**Dark-only.** I am a strong believer that developers are dark mode only. I chose the dark side. There is no light theme because I never wanted one.
+If you are a developer: I am always up to talk about Go, distributed systems, or whatever you are currently stuck on.
 
-**The mobile warning screen.** When I was building this, I was genuinely unsure about how responsive the site would be. I built it on a PC, tested it on a PC, and I wanted to be upfront with visitors that the experience is best on a wider screen. The warning was also an experiment — my first time building something like that, and I wanted to see if I could pull it off.
-
-**"What I Did Not Finish."** I borrowed this idea from another developer's portfolio. Most side projects in CS do not get completed. That is just the truth. But the ones that do sometimes become great open-source projects, and even the failed ones teach you something. I wanted to show that I am okay with putting my unfinished work out there — because the process matters as much as the result.
-
-> "The only real mistake is the one from which we learn nothing." — Henry Ford
-
-## What I Am Most Proud Of
-
-The **Today I Learned** section. I specifically added it so I would be forced to think more deeply about what I am building. When I learn something new or solve a tricky bug, I know I have a place to put it. It makes me pay more attention, reflect more, and hopefully get better at what I do. If this section makes me think twice before moving on from a problem, it has already done its job.
-
-## What I Would Do Differently
-
-The hero section is too simple. I know minimalism is the theme, but this is also a frontend project, and I want to show that I can do more than a centered heading. If I build a V2, I will definitely add more to it.
-
-## Did I Use AI?
-
-Yes. I will not pretend I did not. AI gave me boilerplate code, handled the simple parts, and let me focus on the hard decisions. That is the only reason I finished this in a week. I am not ashamed of that — it is a tool, and I used it to move faster on the things that actually required my judgment.
-
-## What I Learned
-
-Not a ton of new technology — I have used most of this stack before. The two things I actually learned were **MDX** (which I had never touched) and the **command palette** search pattern. I have always wanted to build a `Cmd+K` search bar but never had the right project for it. This was the perfect excuse.
-
-## Should You Build Your Portfolio From Scratch?
-
-Absolutely. Building a portfolio forces you to reflect on what you have built, what you have achieved, and how you want to present yourself to the world. It is not easy. You have to think about what to showcase, what to leave out, how honest to be about your shortcomings, and where to draw the line between genuine and self-promotional.
-
-Everyone has shortcomings. You cannot show all of them. But you also should not hide everything. A portfolio makes you negotiate that line — and that is a harder exercise than any coding challenge.
-
-## What Is Next
-
-This portfolio is not finished. It is a starting point — a V1 that I will iterate on as I build more, learn more, and figure out what I actually want to say to the world. Right now it is a snapshot of where I am: a final-year student with two months of vacation, a growing list of projects, and a lot more to build.
-
-If you are reading this as a recruiter — hi, I am looking for an internship. If you are reading this as a fellow developer — let us talk about Go, distributed systems, or how concurrency slowly erodes your mental state.
-
-The source code is [on GitHub](https://github.com/KiranRajeev-KV/KiranRajeev-KV.github.io) — feel free to steal anything.
-
-> "Start where you are. Use what you have. Do what you can." — Arthur Ashe
+Source is [on GitHub](https://github.com/KiranRajeev-KV/KiranRajeev-KV.github.io) if you want to look around.

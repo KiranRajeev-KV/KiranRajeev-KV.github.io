@@ -8,7 +8,7 @@ A personal portfolio site with a "terminal meets editorial" aesthetic. Monospace
 
 - **Framework:** React 19 + Vite 8 + TypeScript (strict)
 - **Routing:** TanStack Router (file-based, type-safe)
-- **Styling:** Tailwind CSS v4 with custom CSS theme variables
+- **Styling:** Tailwind CSS v4 with OKLCH color system and fluid typography
 - **Animation:** Motion (v12) — spring physics, layout animations, page transitions
 - **Content:** MDX for blog posts, typed TS files for all other data
 - **Search:** Fuse.js fuzzy search via `Cmd+K` command palette
@@ -47,10 +47,10 @@ bun run format
 src/
 ├── routes/              # File-based routes (TanStack Router)
 │   ├── __root.tsx       # Root layout (nav, search, footer)
-│   ├── index.tsx        # Home — kinetic text, typewriter, showcase
+│   ├── index.tsx        # Home — editorial grid, velocity text, showcase
 │   ├── about.tsx        # About — bio, skills, timeline
 │   ├── projects.tsx     # Projects — card grid, drawer, abandoned
-│   ├── library.tsx      # Library — books, papers, articles
+│   ├── library.tsx      # Library — catalog cards, dual-axis filter
 │   ├── blog/            # Blog — index + MDX post renderer
 │   ├── til.tsx          # TIL — micro-posts feed
 │   ├── now.tsx          # Now — current focus
@@ -59,23 +59,22 @@ src/
 ├── data/                # All content as typed TS files
 ├── content/             # MDX blog posts
 ├── context/             # React contexts (search)
-├── hooks/               # Custom hooks (search, intersection)
-└── styles/              # Global CSS + Tailwind theme
+├── hooks/               # Custom hooks (scroll velocity, intersection)
+└── styles/              # Global CSS + OKLCH theme + fluid type scale
 ```
 
 ## Features
 
-- **Kinetic text** — glyph-scramble name reveal on first load (sessionStorage)
 - **Command palette** — `Cmd+K` fuzzy search across projects, blog, and library
-- **Responsive nav** — floating pill on desktop, bottom tab bar on mobile
-- **Mobile warning** — terminal-style overlay on small viewports
-- **Scroll animations** — fade + slide up via IntersectionObserver
+- **Editorial asymmetric grid** — intentional imbalance, not centered columns
+- **Scroll-velocity typography** — text distortion based on scroll speed
+- **Library catalog** — catalog-style cards with accent spines, dual-axis filtering
 - **Project drawer** — slide-in panel with problem/solution/lessons
-- **Library catalog** — expandable cards with personal notes, per-type filtering
+- **Kinetic text** — glyph-scramble name reveal on first load
 - **MDX blog** — custom prose styling, code blocks with copy-on-hover, table of contents
-- **Dark-only theme** — warm dark palette, no toggle
-- **Table of contents** — auto-generated from headings with scroll tracking
-- **GitHub Pages** — auto-deploy on push to main via GitHub Actions
+- **Responsive nav** — floating pill on desktop, bottom tab bar on mobile
+- **Scroll animations** — fade + slide up via IntersectionObserver with spring physics
+- **Dark-only theme** — OKLCH color system with P3 wide-gamut support
 
 ## Code Quality
 
@@ -88,11 +87,11 @@ src/
 
 ### Projects
 
-Edit `src/data/projects.ts`. Each project has `showcase: true` to appear on the homepage.
+Edit `src/data/projects.ts`. Each project has `showcase: true` to appear on the homepage. Accent colors use OKLCH format.
 
 ### Library Items
 
-Edit `src/data/library.ts`. Supports `book`, `paper`, and `article` types with `read`/`reading`/`queued` status.
+Edit `src/data/library.ts`. Supports `book`, `paper`, and `article` types with `read`/`reading`/`queued` status. Cards render with accent-colored spines.
 
 ### Blog Posts
 
@@ -102,7 +101,7 @@ Edit `src/data/library.ts`. Supports `book`, `paper`, and `article` types with `
 
 ### TIL Entries
 
-Edit `src/data/til.ts`. Keep entries to 1-3 sentences.
+Edit `src/data/til.ts`. Keep entries focused — one technical fact per entry.
 
 ### Now Page
 

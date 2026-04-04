@@ -86,10 +86,10 @@ function HomePage() {
                 <Typewriter
                   phrases={[
                     'building things that matter.',
-                    'systems that scale.',
-                    'code that lasts.',
-                    'tools people actually use.',
-                    'software with intention.',
+                    'shipping code that lasts.',
+                    'solving problems that hurt.',
+                    'turning complexity into simplicity.',
+                    'writing software with intention.',
                   ]}
                 />
               </div>

@@ -34,11 +34,15 @@ export const about: AboutData = {
   currentlyBuilding:
     'vox — a real-time voice-to-text tool with Whisper transcription and async LLM cleanup',
   currentlyReading: 'Designing Data-Intensive Applications by Martin Kleppmann (first time)',
-  bio: `I am a final-year B.Tech Computer Science student at Amrita Vishwa Vidyapeetham who likes building things from scratch — not because it is efficient, but because it is the only way to actually understand how they work.
+  bio: `I build things because problems bother me, and building is how I stop being bothered. It started as scratch-your-own-itch pragmatism. It's become something more like craft.
 
-I spend most of my time writing Go, reading research papers, and occasionally building full-stack apps when I want to make something people can actually see. I care about craft — not in a precious way, but in a "this should work correctly and feel intentional" way.
+I'm finishing my B.Tech in Computer Science at Amrita Vishwa Vidyapeetham, but most of what I actually know came from outside the classroom — from staying up too late, from reinventing wheels on purpose, from building things that actually had to work.
 
-When I am not at a computer, I am probably reading or yapping to friends about something I read. My bookshelf does not pick a side — distributed systems algorithms sit next to Adlerian psychology, which sits next to whatever fiction I am pretending to be well-read about. I do not see the contradiction.`,
+My learning process hasn't changed much: skim first to decide if something's worth pursuing, then disappear completely. I write Go, read research papers, and build full-stack apps when I want something people can see. I care about things working correctly and feeling intentional — not as a philosophy, just as a standard.
+
+I want to work with people who are ahead of me. Not despite my confidence — because of it. That's the fastest way to grow, and I'm not interested in slow.
+
+Outside of code: books across too many genres, dramas with plots that actually go somewhere, and coffee that's slowly replaced most other hobbies. I'm an introvert who won't shut up once I'm comfortable.`,
   skills: {
     Languages: [
       { name: 'Go', weight: 3, note: 'Daily driver' },

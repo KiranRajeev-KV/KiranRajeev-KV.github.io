@@ -12,13 +12,13 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'building-this-portfolio',
-    title: 'How I Built This Portfolio (And Why It Took a Week)',
+    title: 'Building This Portfolio',
     date: '2026-04-02',
     category: 'Web',
     categoryColor: 'oklch(0.57 0.24 260)',
     teaser:
-      'My first portfolio site, built from scratch in a week. Here is what I built, what I learned, and why I shipped it.',
+      'What happens when you finally run out of excuses. Built from scratch in a week, dark-only, terminal-meets-editorial.',
     featured: true,
-    wordCount: 1474,
+    wordCount: 713,
   },
 ]
