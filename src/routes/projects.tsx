@@ -7,6 +7,7 @@ import { ProjectDrawer } from '../components/project-drawer'
 import { useSearch, type SearchItem } from '../context/search-context'
 import { SearchTrigger } from '../components/search-trigger'
 import { TextReveal } from '../components/text-reveal'
+import { VelocityText } from '../components/velocity-text'
 import type { Project as ProjectType } from '../data/projects'
 
 export const Route = createFileRoute('/projects')({
@@ -47,7 +48,12 @@ function ProjectsPage() {
       <div className="mx-auto max-w-5xl">
         <Section>
           <div className="mb-8 flex items-center justify-between">
-            <TextReveal text="Projects" className="font-serif text-4xl text-fg" />
+            <VelocityText as="h1" intensity={0.003}>
+              <TextReveal
+                text="Projects"
+                className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg"
+              />
+            </VelocityText>
             <SearchTrigger />
           </div>
         </Section>

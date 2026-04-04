@@ -5,16 +5,26 @@
   --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
   --font-sans: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
 
-  --color-bg: #0f0f0f;
-  --color-bg-elevated: #1a1a1a;
-  --color-bg-subtle: #141414;
-  --color-fg: #e8e8e3;
-  --color-fg-muted: #8a8a85;
-  --color-fg-subtle: #5a5a55;
-  --color-border: #2a2a2a;
-  --color-border-subtle: #222222;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
+  --color-bg: oklch(0.13 0.002 280);
+  --color-bg-elevated: oklch(0.2 0.002 280);
+  --color-bg-subtle: oklch(0.16 0.002 280);
+  --color-fg: oklch(0.92 0.003 280);
+  --color-fg-muted: oklch(0.58 0.003 280);
+  --color-fg-subtle: oklch(0.39 0.002 280);
+  --color-border: oklch(0.27 0.002 280);
+  --color-border-subtle: oklch(0.22 0.002 280);
+  --color-accent: oklch(0.57 0.24 260);
+  --color-accent-hover: oklch(from var(--color-accent) calc(l + 0.11) c h);
+
+  --text-fluid-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-fluid-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-fluid-base: clamp(1rem, 0.9rem + 0.45vw, 1.125rem);
+  --text-fluid-lg: clamp(1.125rem, 1rem + 0.55vw, 1.25rem);
+  --text-fluid-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-fluid-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --text-fluid-3xl: clamp(1.875rem, 1.4rem + 1.8vw, 2.5rem);
+  --text-fluid-4xl: clamp(2.25rem, 1.5rem + 2.8vw, 3.5rem);
+  --text-fluid-5xl: clamp(2.5rem, 1.5rem + 3.8vw, 4.5rem);
 }
 
 html {
@@ -30,4 +40,11 @@ body {
 ::selection {
   background-color: var(--color-accent);
   color: white;
+}
+
+@media (color-gamut: p3) {
+  :root {
+    --color-accent: oklch(0.57 0.28 260);
+    --color-accent-hover: oklch(from var(--color-accent) calc(l + 0.11) c h);
+  }
 }

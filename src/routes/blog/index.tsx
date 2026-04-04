@@ -6,6 +6,7 @@ import { StaggerList } from '../../components/stagger-list'
 import { useSearch, type SearchItem } from '../../context/search-context'
 import { SearchTrigger } from '../../components/search-trigger'
 import { TextReveal } from '../../components/text-reveal'
+import { VelocityText } from '../../components/velocity-text'
 
 function formatReadTime(wordCount: number): string {
   if (wordCount <= 0) return ''
@@ -45,7 +46,12 @@ function BlogPage() {
         <Section>
           <div className="mb-12 flex items-center justify-between">
             <div>
-              <TextReveal text="Writing" className="font-serif text-4xl text-fg" />
+              <VelocityText as="h1" intensity={0.003}>
+                <TextReveal
+                  text="Writing"
+                  className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg"
+                />
+              </VelocityText>
               <p className="mt-2 font-serif text-base text-fg-muted">
                 Thoughts on systems, design, and building things from scratch.
               </p>

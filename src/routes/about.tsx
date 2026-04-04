@@ -4,6 +4,7 @@ import { Section } from '../components/section'
 import { SkillCloud } from '../components/skill-tag'
 import { Timeline } from '../components/timeline'
 import { TextReveal } from '../components/text-reveal'
+import { VelocityText } from '../components/velocity-text'
 
 export const Route = createFileRoute('/about')({
   component: AboutPage,
@@ -14,13 +15,15 @@ function AboutPage() {
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <Section>
-          <TextReveal text="About" className="mb-16 font-serif text-4xl text-fg" />
+          <VelocityText as="h1" intensity={0.003}>
+            <TextReveal text="About" className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg" />
+          </VelocityText>
         </Section>
 
-        <div className="grid gap-16 md:grid-cols-[1fr_280px]">
+        <div className="mt-12 grid gap-12 md:grid-cols-[1fr_280px]">
           <div>
             <Section>
-              <blockquote className="mb-8 border-l-2 border-border pl-4 font-serif text-lg italic text-fg-subtle">
+              <blockquote className="mb-8 border-l-2 border-border pl-4 font-serif text-lg italic leading-relaxed text-fg-subtle">
                 "The best way to predict the future is to invent it." — Alan Kay
               </blockquote>
               <div className="prose prose-fg max-w-none">

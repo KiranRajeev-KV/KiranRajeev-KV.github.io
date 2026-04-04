@@ -3,6 +3,7 @@ import { tilPosts } from '../data/til'
 import { Section } from '../components/section'
 import { StaggerList } from '../components/stagger-list'
 import { TextReveal } from '../components/text-reveal'
+import { VelocityText } from '../components/velocity-text'
 
 export const Route = createFileRoute('/til')({
   component: TilPage,
@@ -14,7 +15,9 @@ function TilPage() {
       <div className="mx-auto max-w-3xl">
         <Section>
           <div className="mb-2 flex items-baseline gap-3">
-            <TextReveal text="TIL" className="font-serif text-4xl text-fg" />
+            <VelocityText as="h1" intensity={0.003}>
+              <TextReveal text="TIL" className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg" />
+            </VelocityText>
             <span className="font-mono text-sm text-fg-subtle">Today I Learned</span>
           </div>
           <p className="mb-12 font-mono text-sm text-fg-muted">
