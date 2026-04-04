@@ -125,17 +125,17 @@ function HomePage() {
             >
               <nav className="flex flex-col gap-2 font-mono text-sm text-fg-muted">
                 <Link
+                  to="/about"
+                  className="w-fit underline decoration-border underline-offset-4 transition-colors hover:text-fg hover:decoration-fg-subtle"
+                >
+                  about
+                </Link>
+                <Link
                   to="/projects"
                   search={{ open: undefined }}
                   className="w-fit underline decoration-border underline-offset-4 transition-colors hover:text-fg hover:decoration-fg-subtle"
                 >
                   projects
-                </Link>
-                <Link
-                  to="/about"
-                  className="w-fit underline decoration-border underline-offset-4 transition-colors hover:text-fg hover:decoration-fg-subtle"
-                >
-                  about
                 </Link>
                 <Link
                   to="/blog"

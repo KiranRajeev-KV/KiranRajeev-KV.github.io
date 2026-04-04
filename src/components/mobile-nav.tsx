@@ -17,20 +17,24 @@ export function MobileNav() {
       initial={{ y: '100%' }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-bg-elevated/90 backdrop-blur-md md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-bg-elevated/95 backdrop-blur-md md:hidden"
     >
-      <div className="flex items-stretch px-2 pb-[env(safe-area-inset-bottom)]">
+      <div className="flex items-stretch px-4 pb-[env(safe-area-inset-bottom)]">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path
           return (
             <Link
               key={item.path}
               to={item.path}
-              className={`relative flex flex-1 flex-col items-center justify-center py-3 font-mono text-xs transition-all duration-200 ${
-                isActive ? 'text-fg' : 'text-fg-subtle active:text-fg active:scale-[1.05]'
-              }`}
+              className="relative flex flex-1 flex-col items-center justify-center py-4 transition-all duration-200 active:scale-[1.05]"
             >
-              {item.label}
+              <span
+                className={`font-mono text-sm rounded-md px-3 py-1.5 transition-colors duration-200 ${
+                  isActive ? 'bg-bg-subtle text-fg' : 'bg-transparent text-fg-subtle hover:text-fg'
+                }`}
+              >
+                {item.label}
+              </span>
               {isActive && (
                 <motion.div
                   layoutId="mobile-nav-indicator"
