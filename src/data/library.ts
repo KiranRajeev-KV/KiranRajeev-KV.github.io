@@ -26,7 +26,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'First time reading it. The chapters on replication and partitioning are already changing how I think about the systems I build.',
     link: 'https://dataintensive.net/',
     tags: ['distributed-systems', 'databases', 'architecture'],
-    accent: '#f59e0b',
+    accent: 'oklch(0.77 0.18 85)',
   },
   {
     id: 'self-compassion',
@@ -37,7 +37,7 @@ export const libraryItems: LibraryItem[] = [
     status: 'reading',
     note: 'Not a technical book — but the research on self-compassion vs self-esteem is genuinely applicable to how I handle failure in engineering.',
     tags: ['psychology', 'personal-growth'],
-    accent: '#f472b6',
+    accent: 'oklch(0.70 0.20 340)',
   },
   {
     id: 'database-internals',
@@ -49,7 +49,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'On the list right after DDIA. Want to understand storage engines and consensus from the inside out.',
     link: 'https://www.oreilly.com/library/view/database-internals/9781492040330/',
     tags: ['databases', 'distributed-systems', 'storage'],
-    accent: '#10b981',
+    accent: 'oklch(0.72 0.16 162)',
   },
   {
     id: 'attention-is-all-you-need',
@@ -61,7 +61,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'Want to read this after implementing more ML from scratch — the math should be much more approachable by then.',
     link: 'https://arxiv.org/abs/1706.03762',
     tags: ['ml', 'transformers'],
-    accent: '#ec4899',
+    accent: 'oklch(0.65 0.23 350)',
   },
   {
     id: 'mapreduce',
@@ -73,7 +73,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'On the list to understand the foundation of distributed data processing before diving into more modern frameworks.',
     link: 'https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/',
     tags: ['distributed-systems', 'data-processing'],
-    accent: '#14b8a6',
+    accent: 'oklch(0.74 0.16 175)',
   },
   {
     id: 'dynamo',
@@ -85,7 +85,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'Want to understand consistent hashing, vector clocks, and eventual availability — foundational to every NoSQL database.',
     link: 'https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf',
     tags: ['distributed-systems', 'databases', 'consistency'],
-    accent: '#fb923c',
+    accent: 'oklch(0.75 0.18 65)',
   },
   {
     id: 'the-mountain-is-you',
@@ -96,7 +96,7 @@ export const libraryItems: LibraryItem[] = [
     status: 'queued',
     note: 'On the list for when I need a non-technical perspective. Self-sabotage is a pattern I recognize in my own project abandonment.',
     tags: ['psychology', 'personal-growth'],
-    accent: '#a78bfa',
+    accent: 'oklch(0.65 0.20 280)',
   },
   {
     id: 'crafting-interpreters',
@@ -110,7 +110,7 @@ export const libraryItems: LibraryItem[] = [
       'The Java implementation is cleaner than most production code I have seen. The chapter on garbage collection alone is worth reading.',
     link: 'https://craftinginterpreters.com/',
     tags: ['languages', 'compilers'],
-    accent: '#06b6d4',
+    accent: 'oklch(0.72 0.14 200)',
   },
   {
     id: 'bigtable',
@@ -122,7 +122,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'Want to understand how Google built the ancestor of half the databases we use today.',
     link: 'https://research.google/pubs/bigtable-a-distributed-storage-system-for-structured-data/',
     tags: ['distributed-systems', 'databases'],
-    accent: '#38bdf8',
+    accent: 'oklch(0.76 0.14 225)',
   },
   {
     id: 'raft',
@@ -134,7 +134,7 @@ export const libraryItems: LibraryItem[] = [
     note: "Want to read this before implementing Raft from scratch. Supposed to be more approachable than Paxos — we'll see.",
     link: 'https://raft.github.io/raft.pdf',
     tags: ['distributed-systems', 'consensus'],
-    accent: '#84cc16',
+    accent: 'oklch(0.75 0.18 120)',
   },
   {
     id: 'paxos',
@@ -146,7 +146,7 @@ export const libraryItems: LibraryItem[] = [
     note: 'Heard this is anything but simple. Want to tackle it after Raft to see how the original consensus algorithm compares.',
     link: 'https://lamport.azurewebsites.net/pubs/paxos-simple.pdf',
     tags: ['distributed-systems', 'consensus'],
-    accent: '#ef4444',
+    accent: 'oklch(0.63 0.22 25)',
   },
   {
     id: 'beejs-guide',
@@ -160,7 +160,7 @@ export const libraryItems: LibraryItem[] = [
       'I keep coming back to this when debugging network issues. This book taught me the practical side of networking — more than my entire college networking course.',
     link: 'https://beej.us/guide/bgnet/',
     tags: ['networking', 'systems', 'C'],
-    accent: '#64748b',
+    accent: 'oklch(0.55 0.04 245)',
   },
   {
     id: 'accidental-cto',
@@ -173,7 +173,7 @@ export const libraryItems: LibraryItem[] = [
     fullNote:
       'A first-hand account of how scaling actually works in practice. Written by a CTO without a CS degree — which is both inspiring and jaw-dropping.',
     tags: ['system-design', 'scaling', 'engineering'],
-    accent: '#f97316',
+    accent: 'oklch(0.70 0.18 55)',
   },
   {
     id: 'atomic-habits',
@@ -186,7 +186,7 @@ export const libraryItems: LibraryItem[] = [
     fullNote:
       'The 2-minute rule is the most actionable advice I have taken from any book. If a task takes less than 2 minutes, do it now. It changed how I approach daily life, not just code.',
     tags: ['habits', 'personal-growth'],
-    accent: '#84cc16',
+    accent: 'oklch(0.75 0.18 120)',
   },
   {
     id: 'subtle-art',
@@ -199,7 +199,7 @@ export const libraryItems: LibraryItem[] = [
     fullNote:
       'The feedback loop concept is the most useful framework from this book. Most arguments in life are about things that do not actually matter.',
     tags: ['philosophy', 'personal-growth'],
-    accent: '#f59e0b',
+    accent: 'oklch(0.77 0.18 85)',
   },
   {
     id: 'courage-to-be-disliked',
@@ -212,7 +212,7 @@ export const libraryItems: LibraryItem[] = [
     fullNote:
       'The concept of "separation of tasks" is the most useful takeaway. You are responsible for your actions, not for how others perceive them. That alone is freeing.',
     tags: ['psychology', 'philosophy'],
-    accent: '#a78bfa',
+    accent: 'oklch(0.65 0.20 280)',
   },
   {
     id: 'shazam-paper',
@@ -226,6 +226,6 @@ export const libraryItems: LibraryItem[] = [
       'The idea of packing anchor frequency, target frequency, and time delta into a single 32-bit hash is one of those "why didn\'t I think of that" moments. Built my own implementation in Go after reading this.',
     link: 'https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf',
     tags: ['signal-processing', 'algorithms', 'audio'],
-    accent: '#ec4899',
+    accent: 'oklch(0.65 0.23 350)',
   },
 ]

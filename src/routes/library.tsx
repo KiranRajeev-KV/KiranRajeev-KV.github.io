@@ -1,14 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
+import { ChevronDown, BookOpen, BookMarked } from 'lucide-react'
 import { libraryItems } from '../data/library'
 import { Section } from '../components/section'
 import { LibraryCard } from '../components/library-card'
 import { TextReveal } from '../components/text-reveal'
+import { VelocityText } from '../components/velocity-text'
 import { useSearch, type SearchItem } from '../context/search-context'
 import { SearchTrigger } from '../components/search-trigger'
 
-const filterOptions = ['All', 'Books', 'Papers', 'Articles']
+const typeFilterOptions = ['All', 'Books', 'Papers', 'Articles']
+const statusFilterOptions = ['All', 'Reading', 'Read', 'Queued']
 
 const typeMap: Record<string, 'book' | 'paper' | 'article'> = {
   Books: 'book',
@@ -16,12 +19,20 @@ const typeMap: Record<string, 'book' | 'paper' | 'article'> = {
   Articles: 'article',
 }
 
+const statusMap: Record<string, 'read' | 'reading' | 'queued'> = {
+  Reading: 'reading',
+  Read: 'read',
+  Queued: 'queued',
+}
+
 export const Route = createFileRoute('/library')({
   component: LibraryPage,
 })
 
 function LibraryPage() {
-  const [activeFilter, setActiveFilter] = useState('All')
+  const [activeTypeFilter, setActiveTypeFilter] = useState('All')
+  const [activeStatusFilter, setActiveStatusFilter] = useState('All')
+  const [statusOpen, setStatusOpen] = useState(false)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const { setItems } = useSearch()
 
@@ -40,54 +51,118 @@ function LibraryPage() {
     setItems(searchItems)
   }, [setItems])
 
-  const filtered =
-    activeFilter === 'All'
-      ? libraryItems
-      : libraryItems.filter((item) => item.type === typeMap[activeFilter])
+  const filtered = libraryItems.filter((item) => {
+    const typeMatch = activeTypeFilter === 'All' || item.type === typeMap[activeTypeFilter]
+    const statusMatch =
+      activeStatusFilter === 'All' || item.status === statusMap[activeStatusFilter]
+    return typeMatch && statusMatch
+  })
 
   return (
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-3xl">
         <Section>
           <div className="mb-2 flex items-center justify-between">
-            <TextReveal text="Library" className="font-serif text-4xl text-fg" />
+            <VelocityText as="h1" intensity={0.003}>
+              <TextReveal
+                text="Library"
+                className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg"
+              />
+            </VelocityText>
             <SearchTrigger />
           </div>
-          <p className="mb-8 font-serif text-base text-fg-muted">
+          <p className="mb-8 flex items-center gap-2 font-serif text-base text-fg-muted">
+            <BookOpen className="hidden h-4 w-4 sm:inline-block text-fg-muted" />
             Books, papers, and things that shaped how I think.
           </p>
           <blockquote className="mb-6 border-l-2 border-border pl-4 font-serif text-lg italic text-fg-subtle">
             "A reader lives a thousand lives before he dies." — George R.R. Martin
           </blockquote>
-          <p className="mb-6 font-mono text-xs text-fg-subtle">{libraryItems.length} items</p>
+          <p className="mb-6 flex items-center gap-2 font-mono text-xs text-fg-muted">
+            <BookMarked className="h-3.5 w-3.5" />
+            {libraryItems.length} items
+          </p>
         </Section>
 
         <Section delay={0.05}>
-          <div className="relative mb-8 flex items-center gap-1 font-mono text-sm">
-            {filterOptions.map((option, i) => (
+          <div className="mb-8 flex items-center justify-between border-b border-border pb-3">
+            <div className="relative flex items-center gap-1 font-mono text-sm">
+              {typeFilterOptions.map((option, i) => (
+                <motion.button
+                  key={option}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => {
+                    setActiveTypeFilter(option)
+                    setExpandedId(null)
+                  }}
+                  className={`relative px-3 py-1.5 transition-colors ${
+                    activeTypeFilter === option ? 'text-fg' : 'text-fg-muted hover:text-fg'
+                  }`}
+                >
+                  {option}
+                  {activeTypeFilter === option && (
+                    <motion.div
+                      layoutId="library-type-underline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-fg"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
+
+            <div className="relative hidden sm:block">
               <motion.button
-                key={option}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => {
-                  setActiveFilter(option)
-                  setExpandedId(null)
-                }}
-                className={`relative px-3 py-1.5 transition-colors ${
-                  activeFilter === option ? 'text-fg' : 'text-fg-muted hover:text-fg'
-                }`}
+                onClick={() => setStatusOpen(!statusOpen)}
+                className="relative flex items-center gap-1 px-3 py-1.5 font-mono text-sm text-fg-muted transition-colors hover:text-fg"
               >
-                {option}
-                {activeFilter === option && (
-                  <motion.div
-                    layoutId="library-filter-underline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-fg"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
+                {activeStatusFilter}
+                <ChevronDown
+                  className={`h-3 w-3 transition-transform duration-200 ${statusOpen ? 'rotate-180' : ''}`}
+                />
               </motion.button>
-            ))}
+
+              <AnimatePresence>
+                {statusOpen && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 z-40"
+                      onClick={() => setStatusOpen(false)}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 4 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-full z-50 mt-1 border border-border bg-bg-elevated py-1 shadow-lg"
+                    >
+                      {statusFilterOptions.map((option) => (
+                        <button
+                          key={option}
+                          onClick={() => {
+                            setActiveStatusFilter(option)
+                            setExpandedId(null)
+                            setStatusOpen(false)
+                          }}
+                          className={`block w-full px-4 py-1.5 text-left font-mono text-sm transition-colors ${
+                            activeStatusFilter === option
+                              ? 'text-fg'
+                              : 'text-fg-muted hover:text-fg'
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </Section>
 
