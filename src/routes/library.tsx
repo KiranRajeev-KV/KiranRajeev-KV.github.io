@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ChevronDown, BookOpen, BookMarked } from 'lucide-react'
 import { libraryItems } from '../data/library'
-import { Section } from '../components/section'
 import { LibraryCard } from '../components/library-card'
 import { TextReveal } from '../components/text-reveal'
 import { VelocityText } from '../components/velocity-text'
@@ -34,7 +33,12 @@ function LibraryPage() {
   const [activeStatusFilter, setActiveStatusFilter] = useState('All')
   const [statusOpen, setStatusOpen] = useState(false)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [loaded, setLoaded] = useState(false)
   const { setItems } = useSearch()
+
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
 
   useEffect(() => {
     const searchItems: SearchItem[] = libraryItems.map((item) => ({
@@ -61,7 +65,11 @@ function LibraryPage() {
   return (
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-3xl">
-        <Section>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="mb-2 flex items-center justify-between">
             <VelocityText as="h1" intensity={0.003}>
               <TextReveal
@@ -69,7 +77,9 @@ function LibraryPage() {
                 className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg"
               />
             </VelocityText>
-            <SearchTrigger />
+            <div className="shrink-0 ml-4">
+              <SearchTrigger />
+            </div>
           </div>
           <p className="mb-8 flex items-center gap-2 font-serif text-base text-fg-muted">
             <BookOpen className="hidden h-4 w-4 sm:inline-block text-fg-muted" />
@@ -82,9 +92,13 @@ function LibraryPage() {
             <BookMarked className="h-3.5 w-3.5" />
             {libraryItems.length} items
           </p>
-        </Section>
+        </motion.div>
 
-        <Section delay={0.05}>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        >
           <div className="mb-8 flex items-center justify-between border-b border-border pb-3">
             <div className="relative flex items-center gap-1 font-mono text-sm">
               {typeFilterOptions.map((option, i) => (
@@ -92,7 +106,7 @@ function LibraryPage() {
                   key={option}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: 0.2 + i * 0.05 }}
                   onClick={() => {
                     setActiveTypeFilter(option)
                     setExpandedId(null)
@@ -164,35 +178,51 @@ function LibraryPage() {
               </AnimatePresence>
             </div>
           </div>
-        </Section>
+        </motion.div>
 
-        <div className="flex flex-col gap-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((item, i) => (
-              <motion.div
-                key={item.id}
-                id={`library-${item.id}`}
-                layout
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2, delay: i * 0.02 }}
-              >
-                <LibraryCard
-                  item={item}
-                  expanded={expandedId === item.id}
-                  onToggle={() => setExpandedId(expandedId === item.id ? null : item.id)}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        >
+          <div className="flex flex-col gap-3">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  id={`library-${item.id}`}
+                  layout
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2, delay: i * 0.02 }}
+                >
+                  <LibraryCard
+                    item={item}
+                    expanded={expandedId === item.id}
+                    onToggle={() => setExpandedId(expandedId === item.id ? null : item.id)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </motion.div>
 
         {filtered.length === 0 && (
           <div className="py-16 text-center font-mono text-sm text-fg-subtle">
             Nothing in this category yet.
           </div>
         )}
+
+        <motion.div
+          className="mt-12 font-mono text-[10px] text-fg-subtle"
+          initial={{ opacity: 0 }}
+          animate={loaded ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4, delay: 0.5 }}
+        >
+          // {libraryItems.length} items across {new Set(libraryItems.map((i) => i.type)).size}{' '}
+          categories
+        </motion.div>
       </div>
     </main>
   )

@@ -13,13 +13,11 @@ export function Section({ children, className = '', delay = 0 }: SectionProps) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30, scale: 0.98 }}
-      animate={isVisible ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.98 }}
+      initial={{ opacity: 0, y: 24 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
       transition={{
-        type: 'spring',
-        stiffness: 200,
-        damping: 24,
-        mass: 0.5,
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
         delay,
       }}
       className={className}

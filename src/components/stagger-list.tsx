@@ -15,12 +15,12 @@ const container = {
   }),
 }
 
-const item = (yOffset = 12) => ({
+const item = (yOffset = 8) => ({
   hidden: { opacity: 0, y: yOffset },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring' as const, stiffness: 300, damping: 24 },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
   },
 })
 
@@ -28,7 +28,7 @@ export function StaggerList({
   children,
   className = '',
   staggerDelay = 0.06,
-  yOffset = 12,
+  yOffset = 8,
 }: StaggerListProps) {
   return (
     <motion.div

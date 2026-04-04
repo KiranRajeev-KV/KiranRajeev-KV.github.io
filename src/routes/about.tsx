@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useState, useEffect } from 'react'
+import { motion } from 'motion/react'
 import { about } from '../data/about'
 import { Section } from '../components/section'
 import { SkillCloud } from '../components/skill-tag'
@@ -11,16 +13,31 @@ export const Route = createFileRoute('/about')({
 })
 
 function AboutPage() {
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
+
   return (
     <main className="min-h-screen px-6 py-32">
       <div className="mx-auto max-w-5xl">
-        <Section>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <VelocityText as="h1" intensity={0.003}>
             <TextReveal text="About" className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg" />
           </VelocityText>
-        </Section>
+        </motion.div>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-[1fr_280px]">
+        <motion.div
+          className="mt-12 grid gap-12 md:grid-cols-[1fr_280px]"
+          initial={{ opacity: 0, y: 24 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        >
           <div>
             <Section>
               <blockquote className="mb-8 border-l-2 border-border pl-4 font-serif text-lg italic leading-relaxed text-fg-subtle">
@@ -96,16 +113,32 @@ function AboutPage() {
               </div>
             </Section>
           </div>
-        </div>
+        </motion.div>
 
-        <Section delay={0.2} className="mt-20">
-          <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">
-            Skills
-          </h2>
-          {Object.entries(about.skills).map(([label, skills]) => (
-            <SkillCloud key={label} label={label} skills={skills} />
-          ))}
-        </Section>
+        <motion.div
+          className="mt-20"
+          initial={{ opacity: 0, y: 24 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        >
+          <Section delay={0.2}>
+            <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+              Skills
+            </h2>
+            {Object.entries(about.skills).map(([label, skills]) => (
+              <SkillCloud key={label} label={label} skills={skills} />
+            ))}
+          </Section>
+        </motion.div>
+
+        <motion.div
+          className="mt-12 font-mono text-[10px] text-fg-subtle"
+          initial={{ opacity: 0 }}
+          animate={loaded ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4, delay: 0.5 }}
+        >
+          // building things that matter
+        </motion.div>
       </div>
     </main>
   )
