@@ -13,7 +13,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       onClick={onClick}
       whileHover={{ y: -4 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      className={`group relative w-full rounded-lg border border-border p-6 text-left transition-shadow hover:shadow-lg`}
+      className={`group relative w-full rounded-lg border border-border p-6 text-left transition-shadow hover:shadow-lg cursor-pointer`}
       style={{ '--accent': project.accent } as React.CSSProperties}
     >
       <div className="absolute inset-0 rounded-lg bg-[var(--accent)] opacity-0 transition-opacity group-hover:opacity-[0.03]" />
