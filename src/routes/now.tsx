@@ -26,7 +26,13 @@ function NowPage() {
           <VelocityText as="h1" intensity={0.003}>
             <h1 className="font-serif text-[clamp(2rem,5vw,3.5rem)] text-fg">Now</h1>
           </VelocityText>
-          <p className="mt-2 font-mono text-xs text-fg-subtle">Last updated: {now.lastUpdated}</p>
+          <p className="mt-2 flex items-center gap-2 font-mono text-xs text-fg-subtle">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            </span>
+            Last updated: {now.lastUpdated}
+          </p>
         </motion.div>
 
         <motion.div

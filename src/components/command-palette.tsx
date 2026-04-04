@@ -28,7 +28,7 @@ function HighlightedText({
   className,
 }: {
   text: string
-  matches?: any[]
+  matches?: readonly { indices?: readonly [number, number][] }[]
   className?: string
 }) {
   if (!matches || matches.length === 0) {
@@ -66,6 +66,7 @@ export function CommandPalette() {
   const { query, setQuery, results } = useFuzzySearch(items)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
   const { showToast } = useToast()
 
@@ -84,6 +85,47 @@ export function CommandPalette() {
   useEffect(() => {
     setSelectedIndex(0)
   }, [query])
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const previouslyFocused = document.activeElement as HTMLElement | null
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        close()
+        return
+      }
+
+      if (e.key !== 'Tab' || !panelRef.current) return
+
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+        'button, input, [tabindex]:not([tabindex="-1"])'
+      )
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      previouslyFocused?.focus()
+    }
+  }, [isOpen, close])
 
   const handleSelect = useCallback(
     (item: SearchItem) => {
@@ -154,9 +196,14 @@ export function CommandPalette() {
             exit={{ opacity: 0 }}
             onClick={close}
             className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-sm"
+            aria-hidden="true"
           />
 
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
@@ -173,7 +220,6 @@ export function CommandPalette() {
                 onKeyDown={handleKeyDown}
                 placeholder="Search..."
                 className="w-full bg-transparent font-mono text-base text-fg placeholder:text-fg-subtle outline-none"
-                aria-label="Search"
               />
               <kbd className="hidden rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-fg-subtle sm:block">
                 esc
@@ -228,7 +274,9 @@ export function CommandPalette() {
                           <div className="font-mono text-sm text-fg">
                             <HighlightedText
                               text={item.title}
-                              matches={resultMatch?.filter((m: any) => m.key === 'title')}
+                              matches={
+                                resultMatch as Array<{ indices?: readonly [number, number][] }>
+                              }
                             />
                           </div>
                           <div className="mt-0.5 font-mono text-[10px] text-fg-subtle">

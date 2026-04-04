@@ -15,7 +15,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
     "lint": "oxlint",
     "format": "prettier --write \"**/*.{ts,tsx,css,json,md,mdx}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,css,json,md,mdx}\"",

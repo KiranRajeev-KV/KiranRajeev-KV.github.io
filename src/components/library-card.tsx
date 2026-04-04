@@ -42,7 +42,13 @@ export function LibraryCard({ item, expanded, onToggle }: LibraryCardProps) {
             ? 'bg-bg-elevated hover:bg-bg-subtle'
             : 'bg-bg-elevated hover:bg-bg-subtle/50'
       }`}
-      style={{ borderLeftWidth: '4px', borderLeftColor: item.accent }}
+      style={{
+        borderLeftWidth: '4px',
+        borderLeftColor: item.accent,
+        boxShadow: expanded
+          ? `inset 4px 0 12px -4px ${item.accent}30, 8px 0 24px -8px rgba(0,0,0,0.3)`
+          : `inset 4px 0 8px -4px ${item.accent}15`,
+      }}
       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
     >
       <div className="px-6 py-5">

@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { ArrowUp } from 'lucide-react'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -25,15 +26,7 @@ export function Footer() {
             aria-label="Back to top"
           >
             <span>top</span>
-            <svg
-              className="h-3 w-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
+            <ArrowUp className="h-3 w-3" />
           </motion.button>
         </div>
       </div>

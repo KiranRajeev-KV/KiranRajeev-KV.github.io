@@ -79,7 +79,7 @@ function BlogPostPage() {
           </Section>
         )}
         <Section delay={0.1}>
-          <article className="prose prose-lg max-w-none font-serif leading-[1.75] text-fg">
+          <article className="prose prose-lg max-w-none font-serif leading-[1.75] text-fg [&>p:first-of-type]:first-letter:float-left [&>p:first-of-type]:first-letter:mr-3 [&>p:first-of-type]:first-letter:mt-1 [&>p:first-of-type]:first-letter:font-serif [&>p:first-of-type]:first-letter:text-6xl [&>p:first-of-type]:first-letter:leading-none [&>p:first-of-type]:first-letter:text-fg">
             <MDXProvider
               components={{
                 p: (props) => <p className="mb-4" {...props} />,
@@ -97,19 +97,22 @@ function BlogPostPage() {
                     )
                   }
                   return (
-                    <div className="group relative my-6">
-                      <pre className="overflow-x-auto rounded-lg border border-border bg-bg-subtle p-4 font-mono text-sm">
+                    <div className="group relative my-6 overflow-hidden rounded-lg border border-border">
+                      <div className="flex items-center justify-between border-b border-border bg-bg-elevated/50 px-4 py-2">
+                        <span className="font-mono text-[10px] text-fg-subtle">code</span>
+                        <button
+                          onClick={() => {
+                            const text = props.children?.toString() || ''
+                            navigator.clipboard.writeText(text)
+                          }}
+                          className="rounded border border-border bg-bg-subtle px-2 py-0.5 font-mono text-[10px] text-fg-subtle opacity-0 transition-opacity hover:text-fg group-hover:opacity-100"
+                        >
+                          copy
+                        </button>
+                      </div>
+                      <pre className="overflow-x-auto bg-bg-subtle p-4 font-mono text-sm">
                         <code {...props} />
                       </pre>
-                      <button
-                        onClick={() => {
-                          const text = props.children?.toString() || ''
-                          navigator.clipboard.writeText(text)
-                        }}
-                        className="absolute top-3 right-3 rounded border border-border bg-bg-elevated px-2 py-1 font-mono text-xs text-fg-subtle opacity-0 transition-opacity hover:text-fg group-hover:opacity-100"
-                      >
-                        copy
-                      </button>
                     </div>
                   )
                 },
@@ -124,7 +127,7 @@ function BlogPostPage() {
                 ),
                 blockquote: (props) => (
                   <blockquote
-                    className="my-6 border-l-2 border-border pl-4 font-serif italic text-fg-muted"
+                    className="my-8 border-l-2 border-accent/40 bg-bg-subtle/30 py-4 pl-5 font-serif italic text-fg-muted"
                     {...props}
                   />
                 ),

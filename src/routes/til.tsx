@@ -5,6 +5,7 @@ import { tilPosts } from '../data/til'
 import { StaggerList } from '../components/stagger-list'
 import { TextReveal } from '../components/text-reveal'
 import { VelocityText } from '../components/velocity-text'
+import { relativeDate } from '../utils/relative-date'
 
 export const Route = createFileRoute('/til')({
   component: TilPage,
@@ -47,7 +48,9 @@ function TilPage() {
                 key={post.id}
                 className="flex items-start gap-4 border-b border-border py-6 transition-colors hover:bg-bg-subtle/50"
               >
-                <span className="shrink-0 font-mono text-xs text-fg-subtle">{post.date}</span>
+                <span className="shrink-0 font-mono text-xs text-fg-subtle">
+                  {relativeDate(post.date)}
+                </span>
                 <div>
                   <p className="font-serif leading-relaxed text-fg">{post.content}</p>
                   <span className="mt-2 inline-block rounded-full border border-border px-2 py-0.5 font-mono text-xs text-fg-subtle">

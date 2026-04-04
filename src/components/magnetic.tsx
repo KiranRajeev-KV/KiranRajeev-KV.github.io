@@ -65,7 +65,6 @@ export function Magnetic({
       ref={ref}
       style={{ x: smoothX, y: smoothY }}
       onMouseMove={handleMouse}
-      onMouseEnter={() => {}}
       onMouseLeave={handleLeave}
       className={className}
     >

@@ -69,7 +69,7 @@ export function TextScramble({ text, className = '', speed = 50, onComplete }: T
         return (
           <span
             key={i}
-            className={isResolving ? 'text-fg-subtle' : done ? 'text-fg-muted' : 'text-fg-muted'}
+            className={isResolving ? 'text-fg-subtle' : done ? 'text-fg' : 'text-fg-muted'}
           >
             {char}
           </span>

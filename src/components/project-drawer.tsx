@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import type { Project } from '../data/projects'
 
@@ -7,6 +8,49 @@ interface ProjectDrawerProps {
 }
 
 export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
+  const drawerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!project) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+
+    const previouslyFocused = document.activeElement as HTMLElement | null
+
+    drawerRef.current?.focus()
+
+    const handleFocusTrap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !drawerRef.current) return
+      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleFocusTrap)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keydown', handleFocusTrap)
+      previouslyFocused?.focus()
+    }
+  }, [project, onClose])
+
   return (
     <AnimatePresence>
       {project && (
@@ -17,13 +61,19 @@ export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
             exit={{ opacity: 0 }}
             onClick={onClose}
             className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+            aria-hidden="true"
           />
           <motion.div
+            ref={drawerRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${project.title} details`}
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 z-50 h-full w-full max-w-lg overflow-y-auto border-l border-border bg-bg-elevated p-8 shadow-2xl"
+            className="fixed top-0 right-0 z-50 h-full w-full max-w-lg overflow-y-auto border-l border-border bg-bg-elevated p-8 shadow-2xl outline-none"
           >
             <button
               onClick={onClose}
