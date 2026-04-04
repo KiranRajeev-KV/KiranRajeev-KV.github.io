@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { motion } from 'motion/react'
 import { KineticText } from '../components/kinetic-text'
 import { Typewriter } from '../components/typewriter'
 import { AmbientGrid } from '../components/ambient-grid'
+import { NoiseTexture } from '../components/noise-texture'
 import { ScrollNudge } from '../components/scroll-nudge'
 import { Section } from '../components/section'
 import { ContactSection } from '../components/contact-section'
@@ -18,8 +20,10 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const { setItems } = useSearch()
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    setLoaded(true)
     const allItems: SearchItem[] = [
       ...projects.map((p) => ({
         id: p.id,
@@ -64,25 +68,42 @@ function HomePage() {
 
   return (
     <>
-      {/* Hero — asymmetric editorial layout */}
+      {/* Hero — orchestrated page load */}
       <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 md:px-12">
         <AmbientGrid />
+        <NoiseTexture />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl">
-          {/* Large serif title spanning 2/3, metadata in 1/3 */}
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr] md:gap-12">
+            {/* Title column */}
             <div className="flex flex-col justify-end">
-              <VelocityText
-                className="font-serif font-bold tracking-tight text-fg"
-                as="h1"
-                intensity={0.004}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={loaded ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.2,
+                }}
               >
-                <KineticText
-                  text="Kiran Rajeev"
-                  className="block text-[clamp(2.5rem,8vw,6rem)] leading-[0.95]"
-                />
-              </VelocityText>
-              <div className="mt-4">
+                <VelocityText
+                  className="font-serif font-bold tracking-tight text-fg"
+                  as="h1"
+                  intensity={0.004}
+                >
+                  <KineticText
+                    text="Kiran Rajeev"
+                    className="block text-[clamp(2.5rem,8vw,6rem)] leading-[0.95]"
+                  />
+                </VelocityText>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={loaded ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mt-4"
+              >
                 <Typewriter
                   phrases={[
                     'building things that matter.',
@@ -92,10 +113,16 @@ function HomePage() {
                     'writing software with intention.',
                   ]}
                 />
-              </div>
+              </motion.div>
             </div>
 
-            <div className="flex flex-col justify-end md:pb-2">
+            {/* Navigation column */}
+            <motion.div
+              className="flex flex-col justify-end md:pb-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
+            >
               <nav className="flex flex-col gap-2 font-mono text-sm text-fg-muted">
                 <Link
                   to="/projects"
@@ -125,11 +152,31 @@ function HomePage() {
                   github
                 </a>
               </nav>
-            </div>
+            </motion.div>
           </div>
+
+          {/* Marginalia — technical annotations */}
+          <motion.div
+            className="mt-12 hidden md:flex items-center gap-6 font-mono text-[10px] text-fg-subtle"
+            initial={{ opacity: 0 }}
+            animate={loaded ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 1.2 }}
+          >
+            <span>// building things that matter</span>
+            <span className="text-fg-subtle/30">|</span>
+            <span>final year CS</span>
+            <span className="text-fg-subtle/30">|</span>
+            <span>Amrita Vishwa Vidyapeetham</span>
+          </motion.div>
         </div>
 
-        <ScrollNudge />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={loaded ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4, delay: 1.5 }}
+        >
+          <ScrollNudge />
+        </motion.div>
       </section>
 
       {/* Expertise — asymmetric 3-column with sticky labels */}
@@ -194,7 +241,7 @@ function HomePage() {
                 <Link
                   to="/projects"
                   search={{ open: project.id }}
-                  className="group relative block bg-bg p-8 transition-colors hover:bg-bg-elevated min-h-[240px] flex flex-col justify-between"
+                  className="group relative block bg-bg p-8 transition-colors hover:bg-bg-elevated min-h-[240px] flex flex-col justify-between cursor-pointer"
                 >
                   <div
                     className="mb-4 h-px w-8 bg-[var(--accent)] transition-all duration-300 group-hover:w-16"

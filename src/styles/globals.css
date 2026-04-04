@@ -3,7 +3,7 @@
 @theme {
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
   --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
-  --font-sans: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+  --font-sans: 'IBM Plex Sans', 'SF Pro Display', system-ui, -apple-system, sans-serif;
 
   --color-bg: oklch(0.13 0.002 280);
   --color-bg-elevated: oklch(0.2 0.002 280);
