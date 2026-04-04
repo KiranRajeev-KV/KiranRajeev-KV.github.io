@@ -25,13 +25,13 @@ export const projects: Project[] = [
     description:
       'Shared backend powering 6 frontend apps across 2 university tech fests, serving 6,000+ users',
     longDescription:
-      'A shared Go backend (Am.EventKit) powering 6 interconnected frontend applications across 2 university tech fests — Anokha and Pragati. Built with 16+ contributors in a PR-driven workflow, featuring an 8-role RBAC system, dual-path bed allocation with row-level locking, RabbitMQ message brokering, and a complete hospitality lifecycle with QR-based gate management.',
+      'A shared Go backend powering 6 interconnected frontend applications across 2 university tech fests. Built with 16+ contributors in a PR-driven workflow. Features role-based access, bed allocation with row-level locking, async event publishing via RabbitMQ, and a complete hospitality lifecycle with QR-based gate management.',
     problem:
       'Two major university tech fests with thousands of participants needed separate but overlapping systems — registration, payments, hospitality, bed allocation, attendance, and leaderboards. Building them separately would mean duplicated effort and inconsistent data.',
     solution:
-      'Built a shared Go backend serving 6 frontend apps with 27+ REST endpoints across 12 domain modules. Implemented a dual-path bed allocation algorithm with row-level locking, a concurrent email dispatcher with disk-persistent queue, and PayU payment integration with SHA-512 verification. Added Prometheus metrics, k6 load testing, and RabbitMQ for async event publishing.',
+      'Built a shared Go backend serving 6 frontend apps. The hardest part was the bed allocation system — when hundreds of people compete for limited hostel beds, you need row-level locking or things go wrong fast. Added a disk-persistent email queue so nothing gets lost on restart, PayU payment integration, and RabbitMQ for async events. Put Prometheus metrics and k6 load testing in place before the fests actually started.',
     lessons: [
-      'Row-level locking (SELECT ... FOR UPDATE) is essential when concurrent users compete for limited resources like hostel beds',
+      'Row-level locking is essential when concurrent users compete for limited resources',
       'A disk-persistent queue survives crashes — in-memory queues lose everything on restart',
       'Building for 6,000+ users taught me that p95 latency matters more than average',
       'Open-source with 16+ contributors requires strict CI gates — fmt.Println blocks in production code',
@@ -62,14 +62,14 @@ export const projects: Project[] = [
     description:
       'AI-powered research paper analysis pipeline with vector search and LLM-driven gap detection',
     longDescription:
-      'A 7-stage research analysis pipeline in Go that takes a research query, discovers relevant papers from Semantic Scholar and arXiv, ranks them using Gemini embeddings and LLM re-scoring, detects research gaps, and generates a structured report. Features SSE real-time progress streaming, a custom circuit breaker across 4 external APIs, and a bounded worker pool with Redis-backed state persistence.',
+      'A research analysis pipeline in Go that takes a query, discovers relevant papers from Semantic Scholar and arXiv, ranks them using embeddings and LLM re-scoring, detects research gaps, and generates a structured report. Features real-time progress streaming, a circuit breaker across 4 external APIs, and Redis-backed state persistence.',
     problem:
       'Finding relevant research papers and identifying gaps in existing literature is tedious. Existing tools list papers but do not analyze relationships, contradictions, or unexplored directions between them.',
     solution:
-      'Built a 7-stage pipeline with hybrid sync/async execution. Papers are discovered from dual sources, ranked using 768-dim Gemini embeddings combined with LLM re-scoring (70% LLM + 30% embedding weight), and analyzed by 7 specialized LLM agents for gap detection, feasibility scoring, and report generation. Added token bucket rate limiting, exponential backoff, and graceful degradation across all external APIs.',
+      'Built a multi-stage pipeline with hybrid sync and async execution. Papers are discovered from dual sources, ranked using Gemini embeddings combined with LLM re-scoring, and analyzed by specialized LLM agents for gap detection and report generation. Added rate limiting, exponential backoff, and graceful degradation across all external APIs — because academic APIs will rate-limit you.',
     lessons: [
       'Circuit breakers are not optional when you depend on 4 external APIs — one failure cascades without them',
-      'Token bucket rate limiting on the client side prevents getting banned by academic APIs with strict quotas',
+      'Client-side rate limiting prevents getting banned by APIs with strict quotas',
       'Vector search with cosine similarity is powerful but needs LLM re-ranking to surface truly relevant results',
       'Background goroutines with Redis-backed state persistence survive crashes mid-pipeline',
     ],
@@ -97,16 +97,16 @@ export const projects: Project[] = [
     description:
       'Real-time voice-to-text pipeline with Whisper transcription and async LLM cleanup',
     longDescription:
-      'A real-time voice-to-text tool that transcribes speech using Whisper large-v3 and asynchronously cleans up grammar with any OpenAI-compatible LLM. Features an optimistic paste pattern where raw text appears instantly while LLM cleanup runs in the background, making latency invisible. Includes a Flask web UI with FTS5-powered search, a 3-layer test suite with WER regression benchmarks, and GPU-optimized VRAM management.',
+      'A real-time voice-to-text tool that transcribes speech using Whisper large-v3 and asynchronously cleans up grammar with any OpenAI-compatible LLM. Features an optimistic paste pattern where raw text appears instantly while LLM cleanup runs in the background. Includes a Flask web UI with search, a test suite with WER regression benchmarks, and GPU-optimized VRAM management.',
     problem:
       'Existing voice typing tools either have high latency (waiting for LLM cleanup) or produce raw, unpolished text. There is no tool that gives you instant feedback while still delivering cleaned-up output.',
     solution:
-      'Built a multi-threaded state machine with bounded-queue architecture achieving sub-second transcription. The key insight: paste raw text instantly, then run LLM cleanup asynchronously in a daemon thread. Added Silero VAD for silence trimming, int8 quantization for 6GB GPU compatibility, and an OutputBackend abstraction supporting xdotool paste with context-aware replace strategies.',
+      'Built a multi-threaded pipeline with bounded-queue architecture. The key insight: paste raw text instantly, then run LLM cleanup asynchronously in the background. Added Silero VAD for silence trimming, int8 quantization for GPU compatibility, and an output abstraction supporting multiple paste strategies. The result is sub-second transcription with polished output that arrives a moment later.',
     lessons: [
       'Optimistic UI patterns work for voice too — show raw output immediately, clean up in the background',
-      'VRAM management on consumer GPUs requires careful model quantization and conditional keep_alive settings',
-      'WER regression benchmarks with LibriSpeech catch transcription quality degradation before it reaches users',
-      'xdotool paste is faster than clipboard but requires window-class blacklisting to avoid terminal corruption',
+      'VRAM management on consumer GPUs requires careful model quantization',
+      'WER regression benchmarks catch transcription quality degradation before it reaches users',
+      'xdotool paste is faster than clipboard but requires careful window filtering',
     ],
     stack: ['Python', 'faster-whisper', 'Flask', 'SQLite', 'OpenAI', 'FFmpeg', 'numpy', 'pytest'],
     accent: 'oklch(0.60 0.22 293)',
@@ -120,16 +120,16 @@ export const projects: Project[] = [
     title: 'Nyx',
     description: 'Lost-and-found platform with on-device CLIP image similarity search',
     longDescription:
-      'A production-grade lost-and-found platform with 5 domain modules, PASETO v4 asymmetric token auth, and on-device CLIP vision embeddings for image similarity search. Generates 512-dimensional vectors using ONNX Runtime entirely in Go — no external ML services. Combines PostgreSQL full-text search with pgvector cosine similarity for multimodal item matching.',
+      'A lost-and-found platform with PASETO v4 asymmetric token auth and on-device CLIP vision embeddings for image similarity search. Generates 512-dimensional vectors using ONNX Runtime entirely in Go — no external ML services. Combines PostgreSQL full-text search with vector similarity for multimodal item matching.',
     problem:
       'Lost-and-found systems rely on text descriptions, which are unreliable for visual items. A lost blue backpack described differently by two people will never match in a text-only search.',
     solution:
-      'Built an on-device CLIP embedding pipeline that generates 512-dim vectors for every uploaded image, enabling cosine similarity search directly in PostgreSQL via pgvector. Combined with full-text search for hybrid multimodal matching. Implemented PASETO v4 asymmetric auth, S3-compatible image storage with presigned URLs, and a comprehensive 3-layer test suite with 317 test functions.',
+      'Built an on-device CLIP embedding pipeline that generates vectors for every uploaded image, enabling similarity search directly in PostgreSQL. Combined with full-text search for hybrid matching. Implemented asymmetric auth, S3-compatible image storage with presigned URLs, and a comprehensive test suite.',
     lessons: [
-      'Running CLIP embeddings on-device with ONNX Runtime eliminates ML service dependencies and latency',
-      'Hybrid search (full-text + vector) outperforms either approach alone for real-world lost-and-found queries',
+      'Running CLIP embeddings on-device eliminates ML service dependencies and latency',
+      'Hybrid search (full-text + vector) outperforms either approach alone for real-world queries',
       'PASETO v4 asymmetric tokens are simpler and safer than JWT for cookie-based auth',
-      '317 test functions across 18 files is not overkill — it is the minimum for a production API',
+      'A large test suite is not overkill — it is the minimum for a production API',
     ],
     stack: ['Go', 'Gin', 'PostgreSQL', 'pgvector', 'ONNX Runtime', 'CLIP', 'SQLC', 'PASETO', 'S3'],
     accent: 'oklch(0.72 0.14 200)',
@@ -143,16 +143,16 @@ export const projects: Project[] = [
     title: 'Hibiki',
     description: 'Shazam-style audio fingerprinting engine built from scratch in Go',
     longDescription:
-      'A Shazam-style audio fingerprinting pipeline implementing Wang (2003) across 1,754 lines of Go. Features a 32-bit combinatorial hash encoding scheme packing anchor frequency, target frequency, and time delta into a single uint32. Includes a complete DSP chain: MP3/WAV decoding, anti-aliasing filter, 8kHz downsampling, FFT spectrogram generation, spectral peak detection, and diagonal alignment matching.',
+      'A Shazam-style audio fingerprinting pipeline implementing Wang (2003) in Go. Features a combinatorial hash encoding scheme packing anchor frequency, target frequency, and time delta into a single integer. Includes a complete DSP chain: MP3/WAV decoding, anti-aliasing filter, downsampling, FFT spectrogram generation, spectral peak detection, and diagonal alignment matching.',
     problem:
       'Understanding how Shazam works from the paper is one thing. Implementing the fingerprinting algorithm, hash encoding, and diagonal alignment matching from scratch is an entirely different challenge.',
     solution:
-      'Built a 5-layer pipeline (audio → DSP → fingerprint → DB → match) with clean separation of concerns. Reduced computational load 5.5x by downsampling to 8kHz with a 64-tap sinc FIR filter. Implemented 32-bit hash encoding enabling O(1) database lookups, and diagonal alignment matching with configurable time coherence windows to filter random collisions.',
+      'Built a 5-layer pipeline (audio → DSP → fingerprint → DB → match) with clean separation of concerns. Reduced computational load by downsampling to 8kHz with an anti-aliasing filter. Implemented hash encoding enabling fast database lookups, and diagonal alignment matching to filter random collisions.',
     lessons: [
       'Anti-aliasing filters are not optional — downsampling without them produces garbage spectrograms',
-      'A 32-bit hash packing frequency pairs and time deltas is elegant but requires careful bit allocation',
+      'A hash packing frequency pairs and time deltas is elegant but requires careful bit allocation',
       'Diagonal alignment matching is the key differentiator between real fingerprinting and naive hash matching',
-      '500,000 collision-free hash combinations in testing does not guarantee zero collisions in production',
+      'Testing with hundreds of thousands of combinations does not guarantee zero collisions in production',
     ],
     stack: ['Go', 'gonum', 'SQLite', 'FFmpeg', 'FFT', 'DSP'],
     accent: 'oklch(0.65 0.23 350)',
@@ -166,15 +166,15 @@ export const projects: Project[] = [
     title: 'Memoria',
     description: 'Bitcask-style key-value storage engine with O(1) lookups, built in pure Go',
     longDescription:
-      'A Bitcask-style key-value storage engine built from scratch in pure Go with zero external dependencies. Features an in-memory KeyDir for O(1) point lookups via a single ReadAt disk seek, sequential append-only writes with CRC32 integrity checks, and an LSM-tree inspired segment rotation system with auto-compaction. Handles 200+ concurrent goroutines safely with a multi-tier locking model.',
+      'A Bitcask-style key-value storage engine built from scratch in pure Go with zero external dependencies. Features an in-memory index for fast point lookups, sequential append-only writes with CRC32 integrity checks, and a segment rotation system with auto-compaction. Handles 200+ concurrent goroutines safely with a multi-tier locking model.',
     problem:
       'Most KV stores are either too complex (RocksDB) or too simple (a map). Building a production-grade storage engine teaches you about disk I/O, concurrency, compaction, and crash recovery — things no framework abstracts away.',
     solution:
-      'Implemented a Bitcask design with in-memory KeyDir, append-only log segments, auto-rotation at 16MB, and background merge compaction triggered by fragmentation ratio. Added hint files for fast recovery, an LRU file cache to prevent file descriptor exhaustion, and CRC32 integrity checks on every entry. Tested with 53+ test functions including 200-goroutine stress tests.',
+      'Implemented a Bitcask design with in-memory index, append-only log segments, auto-rotation at 16MB, and background merge compaction. Added hint files for fast recovery, an LRU file cache to prevent file descriptor exhaustion, and CRC32 integrity checks on every entry. Tested with 200-goroutine stress tests.',
     lessons: [
       'Sequential writes are 100x faster than random writes — append-only logs exploit this',
       'Hint files are a clever optimization: replay metadata instead of scanning full segment logs',
-      'Three synchronized locks (main, WAL, cache) is the minimum for safe concurrent reads, writes, and merges',
+      'Three synchronized locks is the minimum for safe concurrent reads, writes, and merges',
       'Crash recovery testing is the only way to trust your storage engine',
     ],
     stack: ['Go', 'CRC32', 'LSM-tree', 'Bitcask'],
@@ -189,16 +189,16 @@ export const projects: Project[] = [
     title: 'Catalogus',
     description: 'Full-stack media tracking app with two-level caching and type-safe API layer',
     longDescription:
-      'A full-stack media tracking application with 7,553 lines of TypeScript across 82 files. Features an MVC backend (Express 5), SSR frontend (TanStack Start + Nitro), and a 7-table relational schema with composite unique constraints. Built a two-level caching strategy (Redis 24h TTL + database staleness detection) reducing TMDB API calls significantly. Includes type-safe API validation with 10 Zod schemas and cookie-based auth via better-auth.',
+      'A full-stack media tracking application with an MVC backend, SSR frontend, and a relational schema with composite unique constraints. Built a two-level caching strategy (Redis TTL + database staleness detection) reducing external API calls significantly. Includes type-safe API validation and cookie-based auth.',
     problem:
       'Tracking watched movies and TV shows across platforms is fragmented. Existing apps either lack customization or require manual entry. Wanted a self-hosted solution with fast search and reliable external API integration.',
     solution:
-      'Built a full-stack app with TanStack Start SSR frontend and Express backend. Implemented a Prisma $extends extension that auto-tracks completedAt timestamps on status transitions. Added a two-level caching strategy (Redis + DB staleness detection) and debounced search with optimistic UI updates. Containerized 4 services with Docker Compose and established 17 Bruno API test files.',
+      'Built a full-stack app with SSR frontend and Express backend. Implemented a Prisma extension that auto-tracks completed timestamps on status transitions. Added two-level caching and debounced search with optimistic UI updates. Containerized services with Docker Compose and established API test files.',
     lessons: [
-      'Prisma $extends is powerful for cross-cutting concerns like auto-tracking timestamps on status changes',
+      'Prisma extensions are powerful for cross-cutting concerns like auto-tracking timestamps',
       'Two-level caching (Redis + DB staleness) is the sweet spot between performance and data freshness',
       'Zod validation at the API boundary catches bad input before it reaches the database',
-      'Docker Compose with persistent volumes and isolated bridge networking is production-ready for small stacks',
+      'Docker Compose with persistent volumes and isolated networking is production-ready for small stacks',
     ],
     stack: [
       'TypeScript',
@@ -223,16 +223,16 @@ export const projects: Project[] = [
     description:
       'Open-source competition platform with real-time leaderboards and SSE live activity feeds',
     longDescription:
-      'A full-stack open-source competition platform serving 250+ participants with real-time leaderboards, issue tracking, and GitHub OAuth. Built with a Next.js 15 frontend (12,200+ lines TSX) and Go 1.24 backend featuring a goroutine supervisor pattern with infinite-loop panic recovery, SSE-based real-time updates with mutex-protected client registry, and Valkey sorted-set leaderboards across 10 language categories.',
+      'A full-stack open-source competition platform serving 250+ participants with real-time leaderboards, issue tracking, and GitHub OAuth. Built with a Next.js frontend and Go backend featuring a goroutine supervisor pattern with panic recovery, SSE-based real-time updates, and sorted-set leaderboards across multiple categories.',
     problem:
       'Open-source competition platforms need real-time leaderboards, issue tracking, and live activity feeds. Building this with polling is wasteful — SSE is the right tool but requires careful client management.',
     solution:
-      'Built a Next.js + Go platform with SSE real-time updates using a mutex-protected client registry and 100-message buffered channels with drop-on-full backpressure. Implemented a goroutine supervisor with panic recovery and 5s backoff throttling for zero-downtime live feeds. Added Valkey sorted-set leaderboards with compact float-score encoding across 10 categories.',
+      'Built a Next.js + Go platform with SSE real-time updates using a protected client registry and buffered channels with backpressure. Implemented a goroutine supervisor with panic recovery for zero-downtime live feeds. Added sorted-set leaderboards with compact score encoding across multiple categories.',
     lessons: [
-      'SSE with buffered channels and drop-on-full backpressure is more reliable than WebSockets for one-way broadcasts',
-      'A goroutine supervisor with panic recovery prevents a single goroutine crash from taking down the entire feed',
+      'SSE with buffered channels and backpressure is more reliable than WebSockets for one-way broadcasts',
+      'A goroutine supervisor with panic recovery prevents a single crash from taking down the entire feed',
       'Sorted sets with float-score encoding is an elegant way to handle leaderboard ranking',
-      'Client-side token refresh with single-retry loop prevention avoids thundering herd on 401 responses',
+      'Client-side token refresh with retry prevention avoids thundering herd on 401 responses',
     ],
     stack: [
       'Go',
@@ -258,11 +258,11 @@ export const projects: Project[] = [
     description:
       'Zero-dependency Go CLI for concurrent CSV data processing with producer-worker-consumer pattern',
     longDescription:
-      'A zero-dependency Go CLI application using only the standard library to parse, transform, and aggregate Stack Overflow developer survey data. Implements a producer-worker-consumer pattern with broadcast distribution, orchestrating 5+ goroutine types connected via buffered channels. Features an extensible extractor-reducer metric architecture where new metrics require just 2 functions.',
+      'A zero-dependency Go CLI application using only the standard library to parse, transform, and aggregate Stack Overflow developer survey data. Implements a producer-worker-consumer pattern with broadcast distribution, orchestrating multiple goroutine types connected via buffered channels. Features an extensible metric architecture where new metrics require just 2 functions.',
     problem:
       'Processing large CSV survey datasets sequentially is slow. The standard library has all the tools for concurrent processing, but most developers reach for external libraries instead.',
     solution:
-      'Built a concurrent pipeline with 3 worker goroutines for CSV row parsing coordinated by sync.WaitGroup, decoupling I/O-bound reading from CPU-bound map construction. Implemented bounded buffered channels for backpressure between pipeline stages and a broadcast distributor fanning out processed rows to independent metric channels.',
+      'Built a concurrent pipeline with worker goroutines for CSV row parsing, decoupling I/O-bound reading from CPU-bound processing. Implemented bounded buffered channels for backpressure between pipeline stages and a broadcast distributor fanning out processed rows to independent metric channels.',
     lessons: [
       'The standard library is enough — encoding/csv, sync, maps, and channels handle complex pipelines',
       'Bounded buffered channels provide backpressure that prevents goroutine memory blowup',
@@ -281,11 +281,11 @@ export const projects: Project[] = [
     title: 'This Portfolio',
     description: 'The site you are looking at right now',
     longDescription:
-      'Built with TanStack Router, Vite, Tailwind CSS v4, and Motion. Every animation, every transition, every pixel was intentional. Features a command palette with fuzzy search, custom terminal cursor, kinetic text, responsive nav, and a library catalog.',
+      'Built with TanStack Router, Vite, Tailwind CSS v4, and Motion. Every animation, every transition, every pixel was intentional. Features a command palette with fuzzy search, kinetic text, responsive nav, and a library catalog.',
     problem:
       'Most student portfolios look the same. Wanted something that feels like a technical journal, not a template.',
     solution:
-      'Designed from first principles — monospace meets serif, precise grid, intentional whitespace. No frameworks beyond the build tooling. Dark-only theme with custom cursor, fuzzy search, and per-page search behavior.',
+      'Designed from first principles — monospace meets serif, precise grid, intentional whitespace. No frameworks beyond the build tooling. Dark-only theme with fuzzy search and per-page search behavior.',
     lessons: [
       'Design systems are harder than they look',
       'Animation timing is everything — 200ms feels snappy, 400ms feels deliberate',
