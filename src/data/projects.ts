@@ -134,7 +134,7 @@ export const projects: Project[] = [
     stack: ['Go', 'Gin', 'PostgreSQL', 'pgvector', 'ONNX Runtime', 'CLIP', 'SQLC', 'PASETO', 'S3'],
     accent: 'oklch(0.72 0.14 200)',
     size: 'small',
-    links: { github: 'https://github.com/KiranRajeev-KV/nyx' },
+    links: { github: 'https://github.com/KiranRajeev-KV/nyx-backend' },
     featured: true,
     showcase: true,
   },
