@@ -71,7 +71,7 @@ export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
                 <p className="font-serif leading-relaxed">{project.solution}</p>
               </div>
 
-              <div>
+              {/* <div>
                 <h3 className="mb-3 font-mono text-xs uppercase tracking-widest text-fg-subtle">
                   Lessons Learned
                 </h3>
@@ -86,7 +86,7 @@ export function ProjectDrawer({ project, onClose }: ProjectDrawerProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
 
               <div className="flex gap-4 pt-4">
                 {project.links.github && (
