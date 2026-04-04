@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { FloatingNav } from '../components/floating-nav'
 import { MobileNav } from '../components/mobile-nav'
-import { MobileWarning } from '../components/mobile-warning'
 import { ProgressBar } from '../components/progress-bar'
 import { Footer } from '../components/footer'
 import { TextScramble } from '../components/text-scramble'
@@ -77,7 +76,6 @@ function RootComponent() {
       <ProgressBar />
       <SearchProvider>
         <CommandPaletteWrapper />
-        <MobileWarning />
         <ToastProvider>
           <CommandPalette />
           <div className="min-h-screen bg-bg text-fg">
