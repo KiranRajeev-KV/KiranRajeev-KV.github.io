@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'motion/react'
 import { useToast } from './toast'
 import { Section } from './section'
@@ -5,16 +6,23 @@ import { Section } from './section'
 const links = [
   { label: 'Email', href: 'mailto:kiranrajeevkv@gmail.com', value: 'kiranrajeevkv@gmail.com' },
   { label: 'GitHub', href: 'https://github.com/KiranRajeev-KV', value: null },
-  { label: 'LinkedIn', href: 'https://linkedin.com', value: null },
 ]
 
 const resumeUrl = '#'
 
 export function ContactSection() {
   const { showToast } = useToast()
+  const [emailRevealed, setEmailRevealed] = useState(false)
 
-  const copyEmail = async () => {
+  const handleResumeClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    showToast('Coming soon')
+  }
+
+  const handleEmailClick = async (e: React.MouseEvent) => {
+    e.preventDefault()
     await navigator.clipboard.writeText('kiranrajeevkv@gmail.com')
+    setEmailRevealed(true)
     showToast('Email copied ✓')
   }
 
@@ -38,12 +46,13 @@ export function ContactSection() {
             href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleResumeClick}
             initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="group mb-4 flex items-center justify-between rounded-lg border border-border px-6 py-4 transition-colors hover:border-fg-subtle hover:bg-bg-subtle"
           >
-            <span className="font-mono text-sm text-fg">Download Resume</span>
+            <span className="font-mono text-sm text-fg">View Resume</span>
             <motion.span
               className="font-mono text-fg-subtle"
               whileHover={{ x: 4 }}
@@ -62,17 +71,12 @@ export function ContactSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                onClick={
-                  link.value
-                    ? (e) => {
-                        e.preventDefault()
-                        copyEmail()
-                      }
-                    : undefined
-                }
+                onClick={link.value ? handleEmailClick : undefined}
                 className="group flex items-center justify-between rounded-lg border border-border px-6 py-4 transition-colors hover:border-fg-subtle hover:bg-bg-subtle"
               >
-                <span className="font-mono text-sm text-fg">{link.label}</span>
+                <span className="font-mono text-sm text-fg">
+                  {link.value && emailRevealed ? link.value : link.label}
+                </span>
                 <motion.span
                   className="font-mono text-fg-subtle"
                   whileHover={{ x: 4 }}
