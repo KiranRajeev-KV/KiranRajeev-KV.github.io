@@ -21,7 +21,7 @@ export function TextScramble({ text, className = '', speed = 50, onComplete }: T
     setDisplayed('')
 
     const chars = text.split('')
-    const resolved = new Array(chars.length).fill(false)
+    const resolved = Array.from({ length: chars.length }, () => false)
     let elapsed = 0
     const totalDuration = chars.length * speed * 1.5
 
